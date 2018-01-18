@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CompaniesService } from '../../services';
+import { ICompany } from '../../interfaces/company.interface';
 
 @Component({
   selector: 'app-company',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private companiesService: CompaniesService) { }
 
   ngOnInit() {
+    this.companiesService.getCompany()
+      .then((company: ICompany) => {
+      console.log('received company: ', company);
+    })
+      .catch((err: Error) => {
+        console.log('received error: ', err);
+      });
   }
 
 }
