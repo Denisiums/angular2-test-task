@@ -6,7 +6,8 @@ import {
   CompaniesService,
   DepartmentsService,
   SharedService,
-  MembersService } from './services';
+  MembersService
+} from './services';
 
 import { AppComponent } from './components/app/app.component';
 import { CompanyComponent } from './components/pages/company/company.component';

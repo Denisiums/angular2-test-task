@@ -1,3 +1,11 @@
-<p>
-  company works!
-</p>
+<div class="company" *ngIf="company">
+  <div class="company__name">
+    {{company.name}}
+  </div>
+  <div class="company__description">
+    {{company.description}}
+  </div>
+</div>
+<div *ngIf="!company && !pending.company">
+
+</div>
