@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService } from './network.service';
 import 'rxjs/add/operator/toPromise';
-import { ICompany } from '../interfaces/company.interface';
+import { ICompany } from '../interfaces';
 
 @Injectable()
 export class CompaniesService extends NetworkService {
   private baseUrl: string = '/company';
-
 
   constructor(protected http: HttpClient) {
     super(http);
