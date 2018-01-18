@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CompaniesService, DepartmentsService } from '../../services';
-import { ICompany, IDepartmentShort } from '../../interfaces';
+import { CompaniesService, DepartmentsService } from '../../../services';
+import { ICompany, IDepartmentShort } from '../../../interfaces';
 
 interface ICompanyPagePending {
   departments: boolean;

@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {CompanyComponent} from './components/company/company.component';
-import {DepartmentComponent} from './components/department/department.component';
-import {MemberComponent} from './components/member/member.component';
-import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {CompanyComponent} from './components/pages/company/company.component';
+import {DepartmentComponent} from './components/pages/department/department.component';
+import {MemberComponent} from './components/pages/member/member.component';
+import {PageNotFoundComponent} from './components/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 
