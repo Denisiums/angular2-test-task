@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NetworkService } from './network.service';
 import 'rxjs/add/operator/toPromise';
 
-import { IDepartment, IDepartmentShort, IMemberShort } from '../interfaces';
+import { IDepartment, IDepartmentShort } from '../interfaces';
 
 @Injectable()
 export class DepartmentsService extends NetworkService {

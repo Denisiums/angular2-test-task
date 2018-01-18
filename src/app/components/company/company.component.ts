@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CompaniesService } from '../../services';
-import { ICompany } from '../../interfaces';
+import { CompaniesService, DepartmentsService } from '../../services';
+import { ICompany, IDepartmentShort } from '../../interfaces';
+
+interface ICompanyPagePending {
+  departments: boolean;
+  company: boolean;
+}
 
 @Component({
   selector: 'app-company',
@@ -9,15 +14,53 @@ import { ICompany } from '../../interfaces';
 })
 export class CompanyComponent implements OnInit {
 
-  constructor(private companiesService: CompaniesService) { }
+  public company: ICompany;
+  public departmentsList: IDepartmentShort[];
+  public networkError: boolean = false;
+  public pending: ICompanyPagePending = {
+    departments: false,
+    company: false
+  };
+
+  constructor(private companiesService: CompaniesService, private departmentsService: DepartmentsService) { }
 
   ngOnInit() {
+    console.log('Company component');
+    this.getCompany();
+    this.getDepartmentsList();
+  }
+
+  private getCompany(): void {
     this.companiesService.getCompany()
       .then((company: ICompany) => {
-      console.log('received company: ', company);
-    })
+        console.log('received company: ', company);
+        this.company = company;
+        return company;
+      })
       .catch((err: Error) => {
-        console.log('received error: ', err);
+        console.log('received company error: ', err);
+        this.networkError = true;
+        return false;
+      })
+      .then(() => {
+        this.pending.company = false;
+      });
+  }
+
+  private getDepartmentsList(): void {
+    this.departmentsService.getDepartmentsList()
+      .then((list: IDepartmentShort[]) => {
+        console.log('received departments list: ', list);
+        this.departmentsList = list;
+        return list;
+      })
+      .catch((err: Error) => {
+        console.log('received departments list error: ', err);
+        this.networkError = true;
+        return false;
+      })
+      .then(() => {
+        this.pending.departments = false;
       });
   }
 
