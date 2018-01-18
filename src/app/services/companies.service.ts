@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NetworkService } from './network.service';
-import { ICompany } from '../interfaces/company.interface';
 import 'rxjs/add/operator/toPromise';
+import { ICompany } from '../interfaces/company.interface';
 
 @Injectable()
 export class CompaniesService extends NetworkService {
@@ -14,7 +14,8 @@ export class CompaniesService extends NetworkService {
   }
 
   getCompany(): Promise<ICompany> {
-    return this.http.get(this.apiUrl + this.baseUrl)
+    const url: string = this.apiUrl + this.baseUrl;
+    return this.http.get(url)
       .toPromise()
       .then((response: ICompany) => {
         return response;

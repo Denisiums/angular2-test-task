@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class NetworkService {
@@ -16,9 +16,5 @@ export class NetworkService {
   public get apiUrl(): string {
     return this._apiUrl;
   }
-
-  public getDefaultHeaders(): HttpHeaders {
-    return new HttpHeaders({ 'Content-Type': 'application/json' });
-  }
-
 }
+
