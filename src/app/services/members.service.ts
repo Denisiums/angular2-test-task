@@ -26,7 +26,7 @@ export class MembersService extends NetworkService {
       .catch(this.handleError);
   }
 
-  public getDepartmentMember(departmentId: string, memberId: string): Promise<IMemberShort[]> {
+  public getDepartmentMember(departmentId: string, memberId: string): Promise<IMember> {
     if (!departmentId || !memberId) {
       return Promise.reject(new Error('API call invalid arguments'));
     }
