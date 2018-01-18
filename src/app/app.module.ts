@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/company/company.component';
@@ -9,7 +9,7 @@ import { MemberComponent } from './components/member/member.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
-// import { CompanyService }
+import { CompaniesService, DepartmentsService, MembersService } from './services';
 
 @NgModule({
   declarations: [
@@ -21,9 +21,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CompaniesService, DepartmentsService, MembersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
