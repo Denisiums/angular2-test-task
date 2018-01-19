@@ -35,6 +35,9 @@
     @include listItem();
     @include listLink();
   }
+  &__add-member {
+    margin-top: 15px;
+  }
 }
 
 .members-list {
