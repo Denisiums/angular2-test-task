@@ -20,14 +20,14 @@
     @include subtitle();
   }
   &__team-leader {
-    margin: 10px 0 0 10px;
+    margin-top: 10px;
     @include listItem();
     @include listLink();
   }
 }
 
 .members-list {
-  margin: 10px 0 0 10px;
+  margin-top: 10px;
   &__item {
     @include listItem();
   }
