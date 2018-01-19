@@ -31,6 +31,10 @@ export class CompanyComponent implements OnInit {
   }
 
   private getCompany(): void {
+    if (this.pending.company) {
+      return;
+    }
+
     this.pending.company = true;
     this.companiesService.getCompany()
       .then((company: ICompany) => {
@@ -49,6 +53,10 @@ export class CompanyComponent implements OnInit {
   }
 
   private getDepartmentsList(): void {
+    if (this.pending.departments) {
+      return;
+    }
+
     this.pending.departments = true;
     this.departmentsService.getDepartmentsList()
       .then((list: IDepartmentShort[]) => {

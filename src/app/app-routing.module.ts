@@ -17,12 +17,6 @@ const routes: Routes = [
       {path: 'member/:memberId', component: MemberComponent}
     ]
   },
-  // {path: 'departments/:departmentId/member/:memberId', component: MemberComponent, pathMatch: 'full'},
-  // {path: 'departments/:departmentId/member', component: MemberComponent},
-  // {path: 'departments/:departmentId/add-member', component: MemberComponent},
-  // {path: 'departments/:departmentId/member/', component: MemberLayoutComponent,
-
-  // },
   {path: '**', component: PageNotFoundComponent}
 ];
 

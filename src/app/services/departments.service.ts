@@ -24,7 +24,7 @@ export class DepartmentsService extends NetworkService {
       .catch(this.handleError);
   }
 
-  public getDepartment(id: number): Promise<IDepartment> {
+  public getDepartment(id: string): Promise<IDepartment> {
     if (!id) {
       return Promise.reject(new Error('API call invalid arguments'));
     }

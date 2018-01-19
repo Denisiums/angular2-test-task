@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService } from './network.service';
+import { HelpersService } from './helpers.service';
 import 'rxjs/add/operator/toPromise';
 
 import { IMember, IMemberShort } from '../interfaces';
@@ -21,7 +22,7 @@ export class MembersService extends NetworkService {
     return this.http.get(url)
       .toPromise()
       .then((membersList: IMemberShort[]) => {
-        return membersList;
+        return membersList.sort((a, b) => HelpersService.compareStrings(a.name, b.name));
       })
       .catch(this.handleError);
   }
@@ -41,7 +42,7 @@ export class MembersService extends NetworkService {
   }
 
   private getBaseUrl(departmentId: string) {
-    return `${this.apiUrl}/department/${departmentId}/members`;
+    return `${this.apiUrl}/company/departments/${departmentId}/members`;
   }
 
 
