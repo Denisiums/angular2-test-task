@@ -1,0 +1,38 @@
+@import "../../../../assets/styles/mixins";
+
+.department {
+  &__name {
+    @include pageTitle();
+  }
+  &__description {
+    margin-top: 5px;
+    @include description();
+  }
+  &__content {
+    margin-top: 20px;
+  }
+  &__team {
+    flex: 0 0 auto;
+    min-width: 200px;
+    background-color: lightblue;
+  }
+  &__subtitle {
+    @include subtitle();
+  }
+  &__team-leader {
+    margin: 10px 0 0 10px;
+    @include listItem();
+    @include listLink();
+  }
+}
+
+.members-list {
+  margin: 10px 0 0 10px;
+  &__item {
+    @include listItem();
+  }
+  &__link {
+    @include listLink();
+  }
+
+}

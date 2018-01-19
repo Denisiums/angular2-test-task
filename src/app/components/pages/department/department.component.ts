@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DepartmentsService, MembersService } from '../../../services';
+import { DepartmentsService, MembersService, SharedService } from '../../../services';
 import { IDepartment, IMemberShort } from '../../../interfaces';
 
 interface IDepartmentPagePending {
@@ -28,6 +28,7 @@ export class DepartmentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private departmentsService: DepartmentsService,
+    private sharedService: SharedService,
     private membersService: MembersService) { }
 
   ngOnInit() {
@@ -51,6 +52,7 @@ export class DepartmentComponent implements OnInit {
       .then((department: IDepartment) => {
         console.log('received department: ', department);
         this.department = department;
+        this.sharedService.teamLeader = department.teamLeader;
         return department;
       })
       .catch((err: Error) => {

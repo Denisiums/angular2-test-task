@@ -1,6 +1,44 @@
 <div class="department">
+  <div *ngIf="!pending.department && (!department || networkError)">
+    Oops! Something wrong happened. Try again later.
+  </div>
+  <div *ngIf="pending.department">
+    Loading...
+  </div>
 
-  dep comp
+  <div *ngIf="department" class="department__info">
+    <h1 class="department__name">
+      {{department.name}}
+    </h1>
+    <div class="department__description">
+      {{department.description}}
+    </div>
+  </div>
+
+  <div *ngIf="department" class="department__content">
+    <div class="department__team">
+      <h2 class="department__subtitle">
+        Team Leader
+      </h2>
+      <a class="department__team-leader" [routerLink]="['./']">
+        {{department.teamLeader.name}}
+      </a>
+
+      <h2 class="department__subtitle">
+        Members
+      </h2>
+      <ul *ngIf="membersList && membersList.length" class="members-list">
+        <li class="members-list__item" *ngFor="let member of membersList">
+          <a class="members-list__link" [routerLink]="['./member', member.id]">
+            {{member.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class=""></div>
+
+  </div>
 
   <router-outlet></router-outlet>
 </div>

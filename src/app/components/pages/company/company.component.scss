@@ -6,8 +6,7 @@
   }
   &__description {
     margin-top: 5px;
-    font-size: 14px;
-    line-height: 1.4;
+    @include description();
   }
   &__departments {
     margin-top: 20px;
