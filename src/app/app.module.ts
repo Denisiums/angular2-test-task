@@ -19,6 +19,7 @@ import { PageNotFoundComponent } from './components/pages/page-not-found/page-no
 import { AppHeaderComponent } from './components/elements/app-header/app-header.component';
 import { MemberAddComponent } from './components/pages/member-add/member-add.component';
 import { SkillEditorComponent } from './components/elements/skill-editor/skill-editor.component';
+import { SkillComponent } from './components/elements/skill/skill.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SkillEditorComponent } from './components/elements/skill-editor/skill-e
     PageNotFoundComponent,
     AppHeaderComponent,
     MemberAddComponent,
-    SkillEditorComponent
+    SkillEditorComponent,
+    SkillComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+.skills {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  &__list {
+    flex: 0 0 auto;
+    max-width: 300px;
+  }
+  &__chart {
+    flex: 0 0 auto;
+  }
+}

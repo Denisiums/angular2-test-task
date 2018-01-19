@@ -35,6 +35,9 @@
     color: white;
     @include colorize-button($color-discard);
   }
+  &--small {
+    padding: 5px;
+  }
 }
 
 @media (max-width: 1220px) {

@@ -1,0 +1,28 @@
+.skill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  &__label {
+    flex: 0 0 auto;
+  }
+  &__value {
+    margin-left: 5px;
+    flex: 0 0 auto;
+  }
+  &__remove {
+    margin-left: 15px;
+    flex: 0 0 auto;
+  }
+}

@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { ISkill } from '../../../interfaces';
 
 @Component({
   selector: 'app-skill-editor',
   templateUrl: './skill-editor.component.html',
   styleUrls: ['./skill-editor.component.scss']
 })
-export class SkillEditorComponent implements OnInit {
+export class SkillEditorComponent {
+  @Output() public remove = new EventEmitter();
+  @Output() public add = new EventEmitter();
+  @Input() public skills: ISkill[] = [];
 
-  constructor() { }
+  public removeSkill(skill: ISkill): void {
+    if (!skill || !this.remove) {
+      return;
+    }
 
-  ngOnInit() {
+    this.remove.emit(skill);
   }
+
 
 }

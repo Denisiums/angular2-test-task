@@ -1,0 +1,12 @@
+<div class="skill">
+  <div class="skill__info">
+    <div class="skill__label">{{skill.key}}:</div>
+    <div class="skill__value">{{skill.value}}</div>
+  </div>
+  <button
+      (click)="removeSkill($event)"
+      class="skill__remove button button--small button--discard">
+    X
+  </button>
+</div>
+

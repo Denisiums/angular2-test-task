@@ -14,4 +14,21 @@
     </div>
   </div>
 
+  <div class="member__skills">
+      <app-skill-editor
+        [skills]="formMember.skillsList"
+        (add)="addSkill($event)"
+        (remove)="removeSkill($event)"
+      ></app-skill-editor>
+  </div>
+
+  <div class="member__controls">
+    <button (click)="save()" class="button button--submit">
+      Save
+    </button>
+    <button (click)="undo()" class="button button--undo">
+      Undo
+    </button>
+  </div>
+
 </div>

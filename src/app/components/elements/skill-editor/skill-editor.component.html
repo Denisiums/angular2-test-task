@@ -1,3 +1,13 @@
-<p>
-  skill-editor works!
-</p>
+<div class="skills" *ngIf="skills">
+  <div class="skills__list">
+    <app-skill
+      *ngFor="let skill of skills"
+      [skill]="skill"
+      (remove)="removeSkill($event)"
+    ></app-skill>
+    <div>Input will be here</div>
+  </div>
+  <div class="skills__chart">
+    chart
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MembersService, SharedService } from '../../../services';
-import { IMember } from '../../../interfaces';
+import { IMember, ISkill } from '../../../interfaces';
 import { Member } from '../../../models';
 
 interface IMemberPagePending {
@@ -32,7 +32,7 @@ export class MemberComponent implements OnInit {
   private currentMember: Member = null;
   private departmentId: string;
   private memberId: string;
-  private emptyMemberData: IMember = {
+  private readonly emptyMemberData: IMember = {
     name: '',
     description: '',
     gender: 'M',
@@ -65,8 +65,34 @@ export class MemberComponent implements OnInit {
     Object.setPrototypeOf(this.formMember, Member.prototype);
   }
 
-  get canEditSkills(): boolean {
+  public get canEditSkills(): boolean {
     return this.shouldLoadTeamleader;
+  }
+
+  public addSkill(skill: ISkill): void {
+    if (!skill) {
+      return;
+    }
+
+    this.formMember.addSkill(skill);
+  }
+
+  public save(): void {
+    // todo: save
+    console.log('save need');
+  }
+
+  public undo(): void {
+    // todo: undo
+    console.log('undo need');
+  }
+
+  public removeSkill(skill: ISkill): void {
+    if (!skill) {
+      return;
+    }
+
+    this.formMember.removeSkill(skill);
   }
 
   private getMember(): Promise<Member> {
