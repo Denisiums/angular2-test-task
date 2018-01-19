@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MembersService, SharedService } from '../../../services';
 import { IMember } from '../../../interfaces';
 import { Member } from '../../../models';
@@ -60,6 +60,10 @@ export class MemberComponent implements OnInit {
     });
   }
 
+  public canEditSkills(): boolean {
+    return this.shouldLoadTeamleader;
+  }
+
   private getMember(): Promise<Member> {
     if (!this.departmentId) {
       return Promise.reject(new Error('Unable to get member: no department id'));
@@ -71,12 +75,6 @@ export class MemberComponent implements OnInit {
       this.currentMember = teamLeader;
       // or create empty form
       return Promise.resolve(teamLeader);
-    }
-
-    if (this.shouldLoadEmptyForm) {
-      const newMember: Member = new Member(this.emptyMemberData);
-      this.currentMember = newMember;
-      return Promise.resolve(newMember);
     }
 
     const departmentId: string = this.departmentId;
@@ -104,10 +102,4 @@ export class MemberComponent implements OnInit {
     const urlArray = this.location.path().split('/');
     return urlArray[urlArray.length - 2] === 'departments';
   }
-
-  private get shouldLoadEmptyForm(): boolean {
-    const urlArray = this.location.path().split('/');
-    return urlArray[urlArray.length - 1] === 'add';
-  }
-
 }
