@@ -1,3 +1,6 @@
+@import "./variables";
+@import "./mixins";
+
 * {
   box-sizing: border-box;
 }
@@ -9,6 +12,28 @@
   font-family: sans-serif;
   &__content {
     margin-top: 20px;
+  }
+}
+
+.button {
+  display: block;
+  text-decoration: none;
+  padding: 10px 20px;
+  color: black;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  text-align: center;
+  transition: background-color $animation-time-default ease;
+  &--inline {
+    display: inline-block;
+  }
+  &--submit {
+    color: white;
+    @include colorize-button($color-submit);
+  }
+  &--discard {
+    color: white;
+    @include colorize-button($color-discard);
   }
 }
 

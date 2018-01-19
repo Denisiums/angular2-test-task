@@ -36,6 +36,13 @@
   }
 }
 
-@mixin button() {
-  
+@mixin colorize-button($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: lighten($color, 10%);
+  }
+  &:active {
+    background-color: darken($color, 10%);
+  }
 }
