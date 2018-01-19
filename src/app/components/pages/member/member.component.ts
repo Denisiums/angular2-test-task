@@ -23,13 +23,13 @@ export class MemberComponent implements OnInit {
     private sharedService: SharedService) {
   }
 
-  public currentMember: Member = null;
   public formMember: Member = null;
   public pending: IMemberPagePending = {
     member: false
   };
   public networkError: boolean = false;
 
+  private currentMember: Member = null;
   private departmentId: string;
   private memberId: string;
   private emptyMemberData: IMember = {
@@ -60,7 +60,12 @@ export class MemberComponent implements OnInit {
     });
   }
 
-  public canEditSkills(): boolean {
+  public resetMember(): void {
+    this.formMember = Object.assign({}, this.currentMember);
+    Object.setPrototypeOf(this.formMember, Member.prototype);
+  }
+
+  get canEditSkills(): boolean {
     return this.shouldLoadTeamleader;
   }
 

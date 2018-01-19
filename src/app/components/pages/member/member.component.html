@@ -1,5 +1,17 @@
-<div class="member">
-  <h2 class="member__name">
+<div class="member" *ngIf="formMember">
+  <div class="member__info">
+    <h1 class="member__name">
+      {{formMember.name}}
+    </h1>
+    <div class="member__description">
+      {{formMember.description}}
+    </div>
+    <div class="member__info-line">
+      <span class="member__label">Gender:</span> {{formMember.prettyGender}}
+    </div>
+    <div class="member__info-line">
+      <span class="member__label">Job:</span> {{formMember.job}}
+    </div>
+  </div>
 
-  </h2>
 </div>

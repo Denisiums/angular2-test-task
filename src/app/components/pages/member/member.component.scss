@@ -1,3 +1,20 @@
-.member {
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
 
+.member {
+  &__name {
+    @include pageTitle();
+    font-size: 40px;
+  }
+  &__description {
+    margin-top: 5px;
+    @include description();
+  }
+  &__label {
+    font-weight: bold;
+  }
+  &__info-line {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 }

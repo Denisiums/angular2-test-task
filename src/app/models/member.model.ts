@@ -61,4 +61,11 @@ export class Member implements IMember {
 
     return this.skills.hasOwnProperty(skill.key);
   }
+
+  public get prettyGender(): string {
+    if (!this.gender) {
+      return 'N/A';
+    }
+    return this.gender === 'M' ? 'Male' : 'Female';
+  }
 }
