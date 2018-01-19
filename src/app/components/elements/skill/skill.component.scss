@@ -1,10 +1,15 @@
+@import "../../../../assets/styles/mixins";
+
 .skill {
+  @include listLink();
+  cursor: default;
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
+
   &__info {
     flex: 1 1 auto;
     display: flex;

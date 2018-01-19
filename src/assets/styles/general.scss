@@ -24,6 +24,8 @@
   border-radius: $border-radius;
   text-align: center;
   transition: background-color $animation-time-default ease;
+  outline: none;
+  cursor: pointer;
   &--inline {
     display: inline-block;
   }
@@ -35,8 +37,13 @@
     color: white;
     @include colorize-button($color-discard);
   }
+  &--undo {
+    color: white;
+    @include colorize-button($color-undo);
+  }
   &--small {
-    padding: 5px;
+    padding: 3px 6px;
+    font-size: 12px;
   }
 }
 

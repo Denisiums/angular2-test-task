@@ -1,3 +1,5 @@
+@import "../../../../assets/styles/mixins";
+
 .skills {
   display: flex;
   justify-content: space-between;
@@ -12,4 +14,9 @@
   &__chart {
     flex: 0 0 auto;
   }
+}
+
+.subtitle {
+  @include subtitle();
+  margin-bottom: 10px;
 }
