@@ -6,6 +6,7 @@ import {
   CompaniesService,
   DepartmentsService,
   SharedService,
+  HelpersService,
   MembersService
 } from './services';
 
@@ -35,6 +36,7 @@ import { AppHeaderComponent } from './components/elements/app-header/app-header.
     CompaniesService,
     DepartmentsService,
     SharedService,
+    HelpersService,
     MembersService],
   bootstrap: [AppComponent]
 })

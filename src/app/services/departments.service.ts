@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService } from './network.service';
+import { HelpersService } from './helpers.service';
 import 'rxjs/add/operator/toPromise';
 
 import { IDepartment, IDepartmentShort } from '../interfaces';
@@ -18,7 +19,7 @@ export class DepartmentsService extends NetworkService {
     return this.http.get(url)
       .toPromise()
       .then((departmentsList: IDepartmentShort[]) => {
-        return departmentsList;
+        return departmentsList.sort((a, b) => HelpersService.compareStrings(a.name, b.name));
       })
       .catch(this.handleError);
   }

@@ -1,11 +1,36 @@
-<div class="company" *ngIf="company">
-  <div class="company__name">
-    {{company.name}}
+<div class="company">
+  <div *ngIf="!pending.company && (!company || networkError)">
+    Oops! Something wrong happened. Try again later.
   </div>
-  <div class="company__description">
-    {{company.description}}
+  <div *ngIf="pending.company">
+    Loading...
   </div>
-</div>
-<div *ngIf="!company && !pending.company">
 
+  <div *ngIf="company" class="company__info">
+    <h1 class="company__name">
+      {{company.name}}
+    </h1>
+    <div class="company__description">
+      {{company.description}}
+    </div>
+  </div>
+
+  <div class="company__departments">
+    <h2 class="company__subtitle">
+      Departments
+    </h2>
+    <ul *ngIf="departmentsList && departmentsList.length" class="departments-list">
+      <li class="departments-list__item" *ngFor="let department of departmentsList">
+        <a class="departments-list__link" [routerLink]="['./', department.id]">
+          {{department.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+  <div></div>
 </div>
+
