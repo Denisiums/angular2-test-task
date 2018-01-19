@@ -35,7 +35,6 @@ export class DepartmentComponent implements OnInit {
     console.log('Company component');
     this.route.params.subscribe( params => {
       this.departmentId = params['departmentId'];
-      console.log('params: ', params);
     });
     this.getDepartment();
     this.getMembersList();

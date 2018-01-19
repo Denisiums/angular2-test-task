@@ -1,6 +1,6 @@
 export interface IMember {
   name: string;
-  id: string;
+  id?: string;
   gender: 'F'|'M';
   job: string;
   description: string;
@@ -9,7 +9,21 @@ export interface IMember {
   };
 }
 
+// export interface IMember {
+//   name: string;
+//   id?: string;
+//   gender: 'F'|'M';
+//   job: string;
+//   description: string;
+//   skills: ISkill[];
+// }
+
 export interface IMemberShort {
   name: string;
   id: string;
+}
+
+export interface ISkill {
+  key: string;
+  value: number;
 }
