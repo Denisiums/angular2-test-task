@@ -4,7 +4,8 @@ import { NetworkService } from './network.service';
 import { HelpersService } from './helpers.service';
 import 'rxjs/add/operator/toPromise';
 
-import { IDepartment, IDepartmentShort } from '../interfaces';
+import { IDepartment, IDepartmentShort, IDepartmentBackend } from '../interfaces';
+import { Member } from '../models';
 
 @Injectable()
 export class DepartmentsService extends NetworkService {
@@ -32,7 +33,8 @@ export class DepartmentsService extends NetworkService {
     const url: string = `${this.apiUrl}${this.baseUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then((department: IDepartment) => {
+      .then((department: IDepartmentBackend) => {
+        department.teamLeader = new Member(department.teamLeader);
         return department;
       })
       .catch(this.handleError);

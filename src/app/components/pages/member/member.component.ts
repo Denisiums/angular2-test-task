@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MembersService, SharedService } from '../../../services';
 import { IMember } from '../../../interfaces';
+import { Member } from '../../../models';
 
 interface IMemberPagePending {
   member: boolean;
@@ -22,8 +23,8 @@ export class MemberComponent implements OnInit {
     private sharedService: SharedService) {
   }
 
-  public currentMember: IMember = null;
-  public formMember: IMember = null;
+  public currentMember: Member = null;
+  public formMember: Member = null;
   public pending: IMemberPagePending = {
     member: false
   };
@@ -31,7 +32,7 @@ export class MemberComponent implements OnInit {
 
   private departmentId: string;
   private memberId: string;
-  private emptyMember: IMember = {
+  private emptyMemberData: IMember = {
     name: '',
     description: '',
     gender: 'M',
@@ -51,28 +52,29 @@ export class MemberComponent implements OnInit {
       console.log('params changed');
       console.log('this.location.path(): ,', this.location.path());
       this.getMember()
-        .then((member: IMember) => {
+        .then((member: Member) => {
           this.formMember = Object.assign({}, member);
+          Object.setPrototypeOf(this.formMember, Member.prototype);
           console.log('this.formMember: ', this.formMember);
         });
     });
   }
 
-  private getMember(): Promise<IMember> {
+  private getMember(): Promise<Member> {
     if (!this.departmentId) {
       return Promise.reject(new Error('Unable to get member: no department id'));
     }
 
     this.networkError = false;
     if (this.shouldLoadTeamleader) {
-      const teamLeader: IMember = this.sharedService.teamLeader;
+      const teamLeader: Member = this.sharedService.teamLeader;
       this.currentMember = teamLeader;
       // or create empty form
       return Promise.resolve(teamLeader);
     }
 
     if (this.shouldLoadEmptyForm) {
-      const newMember: IMember = Object.assign({}, this.emptyMember);
+      const newMember: Member = new Member(this.emptyMemberData);
       this.currentMember = newMember;
       return Promise.resolve(newMember);
     }
@@ -82,7 +84,7 @@ export class MemberComponent implements OnInit {
     console.log('departmentId: ', departmentId);
     console.log('memberId: ', memberId);
     return this.membersService.getDepartmentMember(departmentId, memberId)
-      .then((member: IMember) => {
+      .then((member: Member) => {
         console.log('received member: ', member);
         this.currentMember = member;
         return member;
@@ -90,9 +92,9 @@ export class MemberComponent implements OnInit {
       .catch((err: Error) => {
         console.log('received member error: ', err);
         this.networkError = true;
-        return Object.assign({}, this.emptyMember);
+        return new Member(this.emptyMemberData);
       })
-      .then((member: IMember) => {
+      .then((member: Member) => {
         this.pending.member = false;
         return member;
       });

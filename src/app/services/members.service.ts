@@ -4,7 +4,8 @@ import { NetworkService } from './network.service';
 import { HelpersService } from './helpers.service';
 import 'rxjs/add/operator/toPromise';
 
-import { IMember, IMemberShort, IMemberBackend } from '../interfaces';
+import { IMember, IMemberShort } from '../interfaces';
+import { Member } from '../models';
 
 @Injectable()
 export class MembersService extends NetworkService {
@@ -27,7 +28,7 @@ export class MembersService extends NetworkService {
       .catch(this.handleError);
   }
 
-  public getDepartmentMember(departmentId: string, memberId: string): Promise<IMember> {
+  public getDepartmentMember(departmentId: string, memberId: string): Promise<Member> {
     if (!departmentId || !memberId) {
       return Promise.reject(new Error('API call invalid arguments'));
     }
@@ -35,8 +36,8 @@ export class MembersService extends NetworkService {
     const url: string = `${this.getBaseUrl(departmentId)}/${memberId}`;
     return this.http.get(url)
       .toPromise()
-      .then((member: IMember) => {
-        return member;
+      .then((memberData: IMember) => {
+        return new Member(memberData);
       })
       .catch(this.handleError);
   }

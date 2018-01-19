@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IMember } from '../interfaces';
+import { Member } from '../models';
 
 @Injectable()
 export class SharedService {
 
-  private _teamLeader: IMember = null;
+  private _teamLeader: Member = null;
 
-  public set teamLeader(member: IMember) {
+  public set teamLeader(member: Member) {
     console.log('set team leader: ', member);
     if (!member) {
       return;
@@ -14,7 +14,7 @@ export class SharedService {
     this._teamLeader = member;
   }
 
-  public get teamLeader(): IMember {
+  public get teamLeader(): Member {
     return this._teamLeader;
   }
 }
