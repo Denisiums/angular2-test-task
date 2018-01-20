@@ -37,7 +37,7 @@ export class MemberComponent implements OnInit {
     description: '',
     gender: 'M',
     job: '',
-    skills: null
+    skills: []
   };
 
   ngOnInit() {
@@ -132,7 +132,7 @@ export class MemberComponent implements OnInit {
       .catch((err: Error) => {
         console.log('received member error: ', err);
         this.networkError = true;
-        return new Member(this.emptyMemberData);
+        return Member.fromFrontend(this.emptyMemberData);
       })
       .then((member: Member) => {
         this.pending.member = false;

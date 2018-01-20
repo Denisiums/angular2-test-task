@@ -1,7 +1,16 @@
 <div class="skill">
+  skillControl value: {{skillControl.value}}<br>
+  skillControl status: {{skillControl.status}}
   <div class="skill__info">
     <div class="skill__label">{{skill.key}}:</div>
-    <div class="skill__value">{{skill.value}}</div>
+    <input
+      min="0"
+      max="100"
+      [formControl]="skillControl"
+
+      [class.input--invalid]="skill.value < 0 || skill.value > 100"
+      class="skill__value input"
+      type="number">
   </div>
   <button
       *ngIf="canEdit"

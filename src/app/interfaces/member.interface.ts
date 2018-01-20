@@ -1,4 +1,4 @@
-export interface IMember {
+export interface IMemberBackend {
   name: string;
   id?: string;
   gender: 'F'|'M';
@@ -9,14 +9,14 @@ export interface IMember {
   };
 }
 
-// export interface IMember {
-//   name: string;
-//   id?: string;
-//   gender: 'F'|'M';
-//   job: string;
-//   description: string;
-//   skills: ISkill[];
-// }
+export interface IMember {
+  name: string;
+  id?: string;
+  gender: 'F'|'M';
+  job: string;
+  description: string;
+  skills: ISkill[];
+}
 
 export interface IMemberShort {
   name: string;
@@ -26,4 +26,8 @@ export interface IMemberShort {
 export interface ISkill {
   key: string;
   value: number;
+}
+
+export interface ISkillsBackend {
+  [key: string]: number;
 }

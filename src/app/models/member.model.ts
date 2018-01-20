@@ -1,4 +1,4 @@
-import { IMember, ISkill } from '../interfaces';
+import { IMember, IMemberBackend, ISkill, ISkillsBackend } from '../interfaces';
 
 export class Member implements IMember {
   public name: string;
@@ -6,29 +6,47 @@ export class Member implements IMember {
   public gender: 'F'|'M';
   public job: string;
   public description: string;
-  public skills: {
-    [key: string]: number
-  };
+  public skills: ISkill[];
 
-  constructor(member: IMember) {
-    this.name = member.name;
-    if (member.id) {
-      this.id = member.id;
-    }
-    this.gender = member.gender;
-    this.job = member.job;
-    this.description = member.description;
-    this.skills = Object.assign({}, member.skills);
+  public skillsList: ISkill[];
+
+  constructor() {
   }
 
-  public get skillsList(): ISkill[] {
+  public static fromBackend(member: IMemberBackend) {
+    const newMember = new Member();
+    newMember.name = member.name;
+    if (member.id) {
+      newMember.id = member.id;
+    }
+    newMember.gender = member.gender;
+    newMember.job = member.job;
+    newMember.description = member.description;
+    newMember.skills = Member.skillsObjectToArray(member.skills);
+    return newMember;
+  }
+
+  public static fromFrontend(member: IMember) {
+    const newMember = new Member();
+    newMember.name = member.name;
+    if (member.id) {
+      newMember.id = member.id;
+    }
+    newMember.gender = member.gender;
+    newMember.job = member.job;
+    newMember.description = member.description;
+    newMember.skills = member.skills;
+    return newMember;
+  }
+
+  public static skillsObjectToArray(skills: ISkillsBackend ): ISkill[] {
     const results: ISkill[] = [];
 
-    Object.keys(this.skills).forEach(key => {
-      if (this.skills.hasOwnProperty(key)) {
+    Object.keys(skills).forEach(key => {
+      if (skills.hasOwnProperty(key)) {
         results.push({
           key,
-          value: this.skills[key]
+          value: skills[key]
         });
       }
     });
@@ -37,13 +55,26 @@ export class Member implements IMember {
     return results;
   }
 
+  public static skillsArrayToObject(skills: ISkill[]): ISkillsBackend {
+    if (!skills || !skills.length) {
+      return {};
+    }
+
+    const result: ISkillsBackend = {};
+    skills.forEach((skill: ISkill) => {
+      result[skill.key] = skill.value;
+    });
+    return result;
+  }
+
   public addSkill(skill: ISkill): void {
     if (!skill || this.hasSkill(skill)) {
+      // todo some notification?
       console.log('Member has this skill already');
       return;
     }
 
-    this.skills[skill.key] = skill.value;
+    this.skills.push(skill);
   }
 
   public removeSkill(skill: ISkill): void {
@@ -51,7 +82,8 @@ export class Member implements IMember {
       return;
     }
 
-    delete this.skills[skill.key];
+    const index: number = this.skills.findIndex((oldSkill: ISkill) => oldSkill.key === skill.key);
+    this.skills.splice(index, 1);
   }
 
   public setSkill(skill: ISkill): void {
@@ -59,7 +91,7 @@ export class Member implements IMember {
       return;
     }
 
-    this.skills[skill.key] = skill.value;
+    this.skills.find((oldSkill: ISkill) => oldSkill.key === skill.key).value = skill.value;
   }
 
   public hasSkill(skill: ISkill): boolean {
@@ -67,7 +99,7 @@ export class Member implements IMember {
       return false;
     }
 
-    return this.skills.hasOwnProperty(skill.key);
+    return !!this.skills.find((oldSkill: ISkill) => oldSkill.key === skill.key);
   }
 
   public get prettyGender(): string {

@@ -34,8 +34,12 @@ export class DepartmentsService extends NetworkService {
     return this.http.get(url)
       .toPromise()
       .then((department: IDepartmentBackend) => {
-        department.teamLeader = new Member(department.teamLeader);
-        return department;
+        return {
+          name: department.name,
+          id: department.id,
+          description: department.description,
+          teamLeader: Member.fromBackend(department.teamLeader),
+        };
       })
       .catch(this.handleError);
   }

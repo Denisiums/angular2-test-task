@@ -2,7 +2,7 @@
 <div class="skills" *ngIf="skills">
   <div class="skills__list">
     <app-skill
-      *ngFor="let skill of skills"
+      *ngFor="let skill of skills;"
       [skill]="skill"
       [canEdit]="canEdit"
       (removeSkill)="remove($event)"
@@ -32,7 +32,7 @@
           min="0"
           max="100"
           formControlName="value"
-          class="labeled-input__input"
+          class="labeled-input__input labeled-input__input--skill"
           type="number">
       </label>
       <button

@@ -1,4 +1,4 @@
-import { IMember } from './';
+import { IMember, IMemberBackend } from './';
 import { Member } from '../models';
 
 export interface IDepartmentShort {
@@ -17,5 +17,5 @@ export interface IDepartmentBackend {
   name: string;
   id: string;
   description: string;
-  teamLeader: IMember;
+  teamLeader: IMemberBackend;
 }

@@ -25,6 +25,9 @@
   &__value {
     margin-left: 5px;
     flex: 0 0 auto;
+    display: block;
+    width: 60px;
+    @include input();
   }
   &__remove {
     margin-left: 15px;
