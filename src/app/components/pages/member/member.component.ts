@@ -67,6 +67,14 @@ export class MemberComponent implements OnInit {
     // todo: save
     console.log('save need');
     // send add data to backend
+    const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
+    const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);
+    const changedSkills: ISkill[] = Member.getChangedSkills(this.currentMember.skills, this.formMember.skills);
+
+    console.log('newSkills: ', newSkills);
+    console.log('removedSkills: ', removedSkills);
+    console.log('changedSkills: ', changedSkills);
+
   }
 
   public undo(): void {

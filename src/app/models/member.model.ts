@@ -67,6 +67,45 @@ export class Member implements IMember {
     return result;
   }
 
+  public static getRemovedSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
+    if (!original || !changed || !Array.isArray(original) || !Array.isArray(changed)) {
+      return [];
+    }
+
+    const result: ISkill[] = [];
+    original.forEach((oldSkill: ISkill) => {
+      if (!changed.find((newSkill: ISkill) => oldSkill.key === newSkill.key)) {
+        result.push(oldSkill);
+      }
+    });
+    return result;
+  }
+
+  public static getNewSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
+    if (!original || !changed || !Array.isArray(original) || !Array.isArray(changed)) {
+      return [];
+    }
+
+    const result: ISkill[] = [];
+    changed.forEach((newSkill: ISkill) => {
+      if (!original.find((oldSkill: ISkill) => oldSkill.key === newSkill.key)) {
+        result.push(newSkill);
+      }
+    });
+    return result;
+  }
+
+  public static getChangedSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
+    const result: ISkill[] = [];
+    original.forEach((oldSkill: ISkill) => {
+      // todo: get new skill - DOESNt work
+      if (changed.find((newSkill: ISkill) => (oldSkill.key === newSkill.key && oldSkill.value !== newSkill.value))) {
+        result.push(oldSkill);
+      }
+    });
+    return result;
+  }
+
   public addSkill(skill: ISkill): void {
     if (!skill || this.hasSkill(skill)) {
       // todo some notification?
