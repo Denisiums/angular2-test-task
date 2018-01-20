@@ -50,7 +50,6 @@ export class MemberComponent implements OnInit {
       this.getMember()
         .then((member: Member) => {
           this.formMember = Member.fromFrontend(this.currentMember);
-          console.log('this.formMember: ', this.formMember);
         });
     });
   }
@@ -70,16 +69,9 @@ export class MemberComponent implements OnInit {
     const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
     const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);
     const changedSkills: ISkill[] = Member.getChangedSkills(this.currentMember.skills, this.formMember.skills);
-
-    console.log('newSkills: ', newSkills);
-    console.log('removedSkills: ', removedSkills);
-    console.log('changedSkills: ', changedSkills);
-
   }
 
   public undo(): void {
-    // todo: undo
-    console.log('undo need');
     this.resetFormMember();
   }
 
@@ -88,7 +80,6 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    console.log('addSkill');
     this.formMember.addSkill(skill);
   }
 
@@ -97,9 +88,7 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    console.log('changeSkill');
     this.formMember.setSkill(skill);
-    console.log(this.formMember);
   }
 
   public removeSkill(skill: ISkill): void {
@@ -107,7 +96,6 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    console.log('removeSkill');
     this.formMember.removeSkill(skill);
   }
 
@@ -126,16 +114,12 @@ export class MemberComponent implements OnInit {
 
     const departmentId: string = this.departmentId;
     const memberId: string = this.memberId;
-    console.log('departmentId: ', departmentId);
-    console.log('memberId: ', memberId);
     return this.membersService.getDepartmentMember(departmentId, memberId)
       .then((member: Member) => {
-        console.log('received member: ', member);
         this.currentMember = member;
         return member;
       })
       .catch((err: Error) => {
-        console.log('received member error: ', err);
         this.networkError = true;
         return Member.fromFrontend(this.emptyMemberData);
       })
@@ -146,10 +130,7 @@ export class MemberComponent implements OnInit {
   }
 
   private resetFormMember(): void {
-    console.log('resetMember call');
     this.formMember = Member.fromFrontend(this.currentMember);
-
-    console.log('this.formMember: ', this.formMember);
   }
 
   private get shouldLoadTeamleader(): boolean {

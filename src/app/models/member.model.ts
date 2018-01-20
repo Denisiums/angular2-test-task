@@ -35,7 +35,7 @@ export class Member implements IMember {
     newMember.gender = member.gender;
     newMember.job = member.job;
     newMember.description = member.description;
-    newMember.skills = [...member.skills];
+    newMember.skills = JSON.parse(JSON.stringify(member.skills));
     return newMember;
   }
 
@@ -72,13 +72,13 @@ export class Member implements IMember {
       return [];
     }
 
-    const result: ISkill[] = [];
+    const results: ISkill[] = [];
     original.forEach((oldSkill: ISkill) => {
       if (!changed.find((newSkill: ISkill) => oldSkill.key === newSkill.key)) {
-        result.push(oldSkill);
+        results.push(oldSkill);
       }
     });
-    return result;
+    return results;
   }
 
   public static getNewSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
@@ -86,24 +86,26 @@ export class Member implements IMember {
       return [];
     }
 
-    const result: ISkill[] = [];
+    const results: ISkill[] = [];
     changed.forEach((newSkill: ISkill) => {
       if (!original.find((oldSkill: ISkill) => oldSkill.key === newSkill.key)) {
-        result.push(newSkill);
+        results.push(newSkill);
       }
     });
-    return result;
+    return results;
   }
 
   public static getChangedSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
-    const result: ISkill[] = [];
+    const results: ISkill[] = [];
     original.forEach((oldSkill: ISkill) => {
-      // todo: get new skill - DOESNt work
-      if (changed.find((newSkill: ISkill) => (oldSkill.key === newSkill.key && oldSkill.value !== newSkill.value))) {
-        result.push(oldSkill);
+      const changedSkill: ISkill = changed.find(
+        (newSkill: ISkill) => ((oldSkill.key === newSkill.key) && (oldSkill.value !== newSkill.value))
+      );
+      if (changedSkill) {
+        results.push(changedSkill);
       }
     });
-    return result;
+    return results;
   }
 
   public addSkill(skill: ISkill): void {
