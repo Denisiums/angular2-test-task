@@ -17,8 +17,9 @@
   <div class="member__skills">
       <app-skill-editor
         [skills]="formMember.skillsList"
-        (add)="addSkill($event)"
-        (remove)="removeSkill($event)"
+        (addSkill)="addSkill($event)"
+        (changeSkill)="changeSkill($event)"
+        (removeSkill)="removeSkill($event)"
       ></app-skill-editor>
   </div>
 

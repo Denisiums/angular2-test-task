@@ -26,6 +26,10 @@
   transition: background-color $animation-time-default ease;
   outline: none;
   cursor: pointer;
+  &[disabled] {
+    opacity: .3;
+    cursor: not-allowed;
+  }
   &--inline {
     display: inline-block;
   }
@@ -44,6 +48,30 @@
   &--small {
     padding: 3px 6px;
     font-size: 12px;
+  }
+  &--inline-input {
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+  }
+}
+
+.labeled-input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-end;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  &__label {
+    flex: 0 0 auto;
+    font-weight: bold;
+  }
+  &__input {
+    margin-top: 5px;
+    flex: 0 0 auto;
+    width: 100%;
+    @include input();
   }
 }
 

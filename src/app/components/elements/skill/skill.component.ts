@@ -7,14 +7,23 @@ import { ISkill } from '../../../interfaces';
   styleUrls: ['./skill.component.scss']
 })
 export class SkillComponent {
-  @Output() public remove = new EventEmitter();
+  @Output() public removeSkill = new EventEmitter();
+  @Output() public changeSkill = new EventEmitter();
   @Input() public skill: ISkill = null;
 
-  public removeSkill(): void {
-    if (!this.remove || !this.skill) {
+  public remove(): void {
+    if (!this.removeSkill || !this.skill) {
       return;
     }
 
-    this.remove.emit(this.skill);
+    this.removeSkill.emit(this.skill);
+  }
+
+  public change(): void {
+    if (!this.changeSkill || !this.skill) {
+      return;
+    }
+
+    this.changeSkill.emit(this.skill);
   }
 }

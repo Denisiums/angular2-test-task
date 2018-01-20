@@ -54,6 +54,14 @@ export class Member implements IMember {
     delete this.skills[skill.key];
   }
 
+  public setSkill(skill: ISkill): void {
+    if (!skill || !this.hasSkill(skill)) {
+      return;
+    }
+
+    this.skills[skill.key] = skill.value;
+  }
+
   public hasSkill(skill: ISkill): boolean {
     if (!skill) {
       return false;

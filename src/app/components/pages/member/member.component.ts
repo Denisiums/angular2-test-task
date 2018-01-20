@@ -69,14 +69,6 @@ export class MemberComponent implements OnInit {
     return this.shouldLoadTeamleader;
   }
 
-  public addSkill(skill: ISkill): void {
-    if (!skill) {
-      return;
-    }
-
-    this.formMember.addSkill(skill);
-  }
-
   public save(): void {
     // todo: save
     console.log('save need');
@@ -87,11 +79,30 @@ export class MemberComponent implements OnInit {
     console.log('undo need');
   }
 
+  public addSkill(skill: ISkill): void {
+    if (!skill) {
+      return;
+    }
+
+    console.log('addSkill');
+    this.formMember.addSkill(skill);
+  }
+
+  public changeSkill(skill: ISkill): void {
+    if (!skill) {
+      return;
+    }
+
+    console.log('changeSkill');
+    this.formMember.setSkill(skill);
+  }
+
   public removeSkill(skill: ISkill): void {
     if (!skill) {
       return;
     }
 
+    console.log('removeSkill');
     this.formMember.removeSkill(skill);
   }
 

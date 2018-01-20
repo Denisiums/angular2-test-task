@@ -4,10 +4,46 @@
     <app-skill
       *ngFor="let skill of skills"
       [skill]="skill"
-      (remove)="removeSkill($event)"
+      (removeSkill)="remove($event)"
+      (changeSkill)="change($event)"
     ></app-skill>
-    <div>Input will be here</div>
+    <form
+        [formGroup]="skillForm"
+        (ngSubmit)="add()"
+        novalidate
+        class="add-skill skills__form">
+      <label title="Skill name up to 255 characters" class="add-skill__input labeled-input">
+        <div class="labeled-input__label">
+          Skill name
+        </div>
+        <input
+          formControlName="key"
+          maxlength="255"
+          class="labeled-input__input"
+          type="text">
+      </label>
+      <label title="Skill level from 0 to 100" class="add-skill__input labeled-input">
+        <div class="labeled-input__label">
+          Level
+        </div>
+        <input
+          min="0"
+          max="100"
+          formControlName="value"
+          class="labeled-input__input"
+          type="number">
+      </label>
+      <button
+          type="submit"
+          [disabled]="!skillForm.valid || hasSameSkill"
+          class="add-skill__input button button--inline-input button--submit">
+        Add
+      </button>
+    </form>
   </div>
+  form value: {{skillForm.value | json}}<br>
+  form status: {{skillForm.status | json}}<br>
+  hasSameSkill: {{hasSameSkill}}<br>
   <div class="skills__chart">
     chart
   </div>
