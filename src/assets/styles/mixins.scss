@@ -53,4 +53,8 @@
   line-height: 1;
   border: 1px solid $color-border;
   border-radius: $border-radius;
+  outline: none;
+  &--invalid {
+    border-color: $color-discard !important;
+  }
 }
