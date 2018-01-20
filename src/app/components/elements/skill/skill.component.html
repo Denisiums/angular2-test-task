@@ -4,7 +4,8 @@
     <input
       min="0"
       max="100"
-      title="Skill level from 0 to 100"
+      title="{{canEdit ? 'Skill level from 0 to 100' : ''}}"
+      (input)="change()"
       [formControl]="skillControl"
       [class.input--invalid]="skillControl.touched && skillControl.invalid"
       class="skill__value input"

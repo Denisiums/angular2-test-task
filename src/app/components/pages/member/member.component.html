@@ -24,7 +24,7 @@
       ></app-skill-editor>
   </div>
 
-  <div class="member__controls">
+  <div class="member__controls" *ngIf="canEdit">
     <button (click)="save()" class="button button--submit">
       Save
     </button>

@@ -41,16 +41,12 @@ export class MemberComponent implements OnInit {
   };
 
   ngOnInit() {
-    console.log('init!');
     this.route.parent.params.subscribe(params => {
-      console.log('get department id');
       this.departmentId = params['departmentId'];
     });
 
     this.route.params.subscribe( params => {
       this.memberId = params['memberId'];
-      console.log('params changed');
-      console.log('this.location.path(): ,', this.location.path());
       this.getMember()
         .then((member: Member) => {
           this.formMember = Object.assign({}, member);
@@ -66,6 +62,10 @@ export class MemberComponent implements OnInit {
   }
 
   public get canEditSkills(): boolean {
+    return !this.shouldLoadTeamleader;
+  }
+
+  public get canEdit(): boolean {
     return !this.shouldLoadTeamleader;
   }
 
@@ -95,6 +95,7 @@ export class MemberComponent implements OnInit {
 
     console.log('changeSkill');
     this.formMember.setSkill(skill);
+    console.log(this.formMember);
   }
 
   public removeSkill(skill: ISkill): void {

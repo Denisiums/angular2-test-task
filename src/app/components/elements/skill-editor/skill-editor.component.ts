@@ -45,7 +45,7 @@ export class SkillEditorComponent implements OnInit {
       return;
     }
 
-    this.removeSkill.emit(skill);
+    this.changeSkill.emit(skill);
   }
 
   public add(): void {

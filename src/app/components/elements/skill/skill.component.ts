@@ -34,7 +34,12 @@ export class SkillComponent implements OnInit {
     if (!this.changeSkill || !this.skill || !this.canEdit) {
       return;
     }
+    const key: string = this.skill.key;
+    const value: number = this.skillControl.value;
 
-    this.changeSkill.emit(this.skill);
+    this.changeSkill.emit({
+      key,
+      value
+    });
   }
 }
