@@ -49,16 +49,10 @@ export class MemberComponent implements OnInit {
       this.memberId = params['memberId'];
       this.getMember()
         .then((member: Member) => {
-          this.formMember = Object.assign({}, member);
-          Object.setPrototypeOf(this.formMember, Member.prototype);
+          this.formMember = Member.fromFrontend(this.currentMember);
           console.log('this.formMember: ', this.formMember);
         });
     });
-  }
-
-  public resetMember(): void {
-    this.formMember = Object.assign({}, this.currentMember);
-    Object.setPrototypeOf(this.formMember, Member.prototype);
   }
 
   public get canEditSkills(): boolean {
@@ -72,11 +66,13 @@ export class MemberComponent implements OnInit {
   public save(): void {
     // todo: save
     console.log('save need');
+    // send add data to backend
   }
 
   public undo(): void {
     // todo: undo
     console.log('undo need');
+    this.resetFormMember();
   }
 
   public addSkill(skill: ISkill): void {
@@ -139,6 +135,13 @@ export class MemberComponent implements OnInit {
         this.pending.member = false;
         return member;
       });
+  }
+
+  private resetFormMember(): void {
+    console.log('resetMember call');
+    this.formMember = Member.fromFrontend(this.currentMember);
+
+    console.log('this.formMember: ', this.formMember);
   }
 
   private get shouldLoadTeamleader(): boolean {

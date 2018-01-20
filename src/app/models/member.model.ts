@@ -35,7 +35,7 @@ export class Member implements IMember {
     newMember.gender = member.gender;
     newMember.job = member.job;
     newMember.description = member.description;
-    newMember.skills = member.skills;
+    newMember.skills = [...member.skills];
     return newMember;
   }
 
