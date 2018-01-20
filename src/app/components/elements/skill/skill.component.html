@@ -4,6 +4,7 @@
     <div class="skill__value">{{skill.value}}</div>
   </div>
   <button
+      *ngIf="canEdit"
       (click)="remove($event)"
       class="skill__remove button button--small button--discard">
     X

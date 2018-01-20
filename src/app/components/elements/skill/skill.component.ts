@@ -10,9 +10,10 @@ export class SkillComponent {
   @Output() public removeSkill = new EventEmitter();
   @Output() public changeSkill = new EventEmitter();
   @Input() public skill: ISkill = null;
+  @Input() public canEdit: boolean = true;
 
   public remove(): void {
-    if (!this.removeSkill || !this.skill) {
+    if (!this.removeSkill || !this.skill || !this.canEdit) {
       return;
     }
 
@@ -20,7 +21,7 @@ export class SkillComponent {
   }
 
   public change(): void {
-    if (!this.changeSkill || !this.skill) {
+    if (!this.changeSkill || !this.skill || !this.canEdit) {
       return;
     }
 

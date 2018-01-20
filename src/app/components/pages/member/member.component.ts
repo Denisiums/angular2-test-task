@@ -66,7 +66,7 @@ export class MemberComponent implements OnInit {
   }
 
   public get canEditSkills(): boolean {
-    return this.shouldLoadTeamleader;
+    return !this.shouldLoadTeamleader;
   }
 
   public save(): void {

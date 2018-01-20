@@ -14,6 +14,7 @@ export class SkillEditorComponent implements OnInit {
   @Output() public addSkill = new EventEmitter();
   @Output() public changeSkill = new EventEmitter();
   @Input() public skills: ISkill[] = [];
+  @Input() public canEdit: boolean = true;
 
   public newSkill: ISkill;
 
@@ -32,7 +33,7 @@ export class SkillEditorComponent implements OnInit {
   }
 
   public remove(skill: ISkill): void {
-    if (!skill || !this.removeSkill) {
+    if (!skill || !this.removeSkill || !this.canEdit) {
       return;
     }
 
@@ -40,7 +41,7 @@ export class SkillEditorComponent implements OnInit {
   }
 
   public change(skill: ISkill): void {
-    if (!skill || !this.changeSkill) {
+    if (!skill || !this.changeSkill || !this.canEdit) {
       return;
     }
 
@@ -48,7 +49,7 @@ export class SkillEditorComponent implements OnInit {
   }
 
   public add(): void {
-    if (!this.skillForm.valid || !this.addSkill || this.hasSameSkill) {
+    if (!this.skillForm.valid || !this.addSkill || this.hasSameSkill || !this.canEdit) {
       return;
     }
 

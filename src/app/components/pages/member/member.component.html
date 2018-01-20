@@ -16,6 +16,7 @@
 
   <div class="member__skills">
       <app-skill-editor
+        [canEdit]="canEditSkills"
         [skills]="formMember.skillsList"
         (addSkill)="addSkill($event)"
         (changeSkill)="changeSkill($event)"

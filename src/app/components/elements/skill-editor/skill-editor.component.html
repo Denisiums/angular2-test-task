@@ -4,10 +4,12 @@
     <app-skill
       *ngFor="let skill of skills"
       [skill]="skill"
+      [canEdit]="canEdit"
       (removeSkill)="remove($event)"
       (changeSkill)="change($event)"
     ></app-skill>
     <form
+        *ngIf="canEdit"
         [formGroup]="skillForm"
         (ngSubmit)="add()"
         novalidate
