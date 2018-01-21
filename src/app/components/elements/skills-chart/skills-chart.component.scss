@@ -2,11 +2,21 @@
 @import "../../../../assets/styles/variables";
 
 .skills-chart {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  align-content: flex-end;
+  flex-direction: row;
+  flex-wrap: nowrap;
   &__chart {
-
+    flex: 0 0 auto;
+    order: 5;
   }
   &__legend {
-    margin-top: 5px;
+    flex: 0 0 auto;
+    order: -5;
+    margin-bottom: 20px;
+    margin-right: 15px;
   }
   &__skill {
     margin-top: 10px;
