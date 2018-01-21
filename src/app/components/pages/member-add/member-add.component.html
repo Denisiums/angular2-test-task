@@ -3,7 +3,8 @@
     Add new Member
   </h1>
   memberForm value: {{memberForm.value | json}} <br>
-  memberForm status: {{memberForm.status | json}}
+  memberForm status: {{memberForm.status | json}} <br>
+  skills valid: {{skillsValid}}
   <form
     [formGroup]="memberForm"
     (ngSubmit)="add()"
@@ -73,7 +74,7 @@
     {{formError}}
   </div>
   <div class="add-member__controls">
-    <button [disabled]="!skillsValid || !memberChanged" (click)="save()" class="member__control button button--large button--submit">
+    <button [disabled]="!skillsValid || !memberForm.valid" (click)="create()" class="member__control button button--large button--submit">
       Add
     </button>
   </div>
