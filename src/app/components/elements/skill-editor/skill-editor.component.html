@@ -45,10 +45,9 @@
       </button>
     </form>
   </div>
-  form value: {{skillForm.value | json}}<br>
-  form status: {{skillForm.status | json}}<br>
-  hasSameSkill: {{hasSameSkill}}<br>
   <div class="skills__chart">
-    chart
+    <app-skills-chart
+      [skills]="skills"
+    ></app-skills-chart>
   </div>
 </div>

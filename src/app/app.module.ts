@@ -21,6 +21,7 @@ import { AppHeaderComponent } from './components/elements/app-header/app-header.
 import { MemberAddComponent } from './components/pages/member-add/member-add.component';
 import { SkillEditorComponent } from './components/elements/skill-editor/skill-editor.component';
 import { SkillComponent } from './components/elements/skill/skill.component';
+import { SkillsChartComponent } from './components/elements/skills-chart/skills-chart.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SkillComponent } from './components/elements/skill/skill.component';
     AppHeaderComponent,
     MemberAddComponent,
     SkillEditorComponent,
-    SkillComponent
+    SkillComponent,
+    SkillsChartComponent
   ],
   imports: [
     BrowserModule,
