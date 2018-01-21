@@ -1,7 +1,7 @@
 import { IMember, IMemberBackend, ISkill, ISkillsBackend } from '../interfaces';
 
 export class Member implements IMember {
-  public static readonly skillNameMaxLength: number = 255;
+  public static readonly skillNameMaxLength: number = 50;
   public static readonly skillMinValue: number = 0;
   public static readonly skillMaxValue: number = 100;
 

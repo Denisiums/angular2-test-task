@@ -14,13 +14,13 @@
         (ngSubmit)="add()"
         novalidate
         class="add-skill skills__form">
-      <label title="Skill name up to 255 characters" class="add-skill__input labeled-input">
+      <label title="Skill name up to 50 characters" class="add-skill__input labeled-input">
         <div class="labeled-input__label">
           Skill name
         </div>
         <input
           formControlName="key"
-          maxlength="255"
+          [maxlength]="skillNameMaxLength"
           [class.input--invalid]="skillForm.get('key').touched && skillForm.get('key').invalid"
           class="input labeled-input__input"
           type="text">

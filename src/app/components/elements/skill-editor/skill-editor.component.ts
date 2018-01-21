@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISkill } from '../../../interfaces';
+import { Member } from '../../../models';
 
 @Component({
   selector: 'app-skill-editor',
@@ -27,7 +28,7 @@ export class SkillEditorComponent implements OnInit {
     };
 
     this.skillForm = this.fb.group({
-      key: [this.newSkill.key, [Validators.required, Validators.maxLength(255)]],
+      key: [this.newSkill.key, [Validators.required, Validators.maxLength(this.skillNameMaxLength)]],
       value: [this.newSkill.value, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
   }
@@ -70,5 +71,9 @@ export class SkillEditorComponent implements OnInit {
     }
 
     return !!(this.skills.find((skill: ISkill) => skill.key === newSkillKey.trim()));
+  }
+
+  public get skillNameMaxLength(): number {
+    return Member.skillNameMaxLength;
   }
 }

@@ -41,3 +41,16 @@
   @include subtitle();
   margin-bottom: 10px;
 }
+
+@media (max-width: 1150px) {
+  .skills {
+    flex-direction: column;
+    &__list {
+      order: -5;
+    }
+    &__chart {
+      order: 5;
+      margin-top: 10px;
+    }
+  }
+}

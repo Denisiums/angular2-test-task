@@ -45,5 +45,7 @@
     flex: 0 0 auto;
     font-size: 12px;
     margin-left: 5px;
+    @include ellipsis();
+    max-width: 150px;
   }
 }

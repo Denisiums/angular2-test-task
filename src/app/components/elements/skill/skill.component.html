@@ -1,6 +1,8 @@
 <div class="skill" [class.skill--disabled]="!canEdit">
   <div class="skill__info">
-    <div class="skill__label">{{skill.key}}:</div>
+    <div [title]="skill.key" class="skill__label">
+      {{skill.key}}:
+    </div>
     <input
       min="0"
       max="100"

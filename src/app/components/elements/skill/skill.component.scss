@@ -21,6 +21,8 @@
   }
   &__label {
     flex: 0 0 auto;
+    @include ellipsis();
+    max-width: 175px;
   }
   &__value {
     margin-left: 5px;
