@@ -25,4 +25,20 @@
     color: $color-discard;
     font-size: 20px;
   }
+  &__controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 30px;
+  }
+  &__control {
+    flex: 0 0 auto;
+    margin-left: 20px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 }
