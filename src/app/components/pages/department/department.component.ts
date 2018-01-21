@@ -32,7 +32,6 @@ export class DepartmentComponent implements OnInit {
     private membersService: MembersService) { }
 
   ngOnInit() {
-    console.log('Company component');
     this.route.params.subscribe( params => {
       this.departmentId = params['departmentId'];
     });
@@ -49,13 +48,11 @@ export class DepartmentComponent implements OnInit {
     this.pending.department = true;
     this.departmentsService.getDepartment(departmentId)
       .then((department: IDepartment) => {
-        console.log('received department: ', department);
         this.department = department;
         this.sharedService.teamLeader = department.teamLeader;
         return department;
       })
       .catch((err: Error) => {
-        console.log('received department error: ', err);
         this.networkError = true;
         return false;
       })
@@ -73,12 +70,10 @@ export class DepartmentComponent implements OnInit {
     this.pending.members = true;
     this.membersService.getDepartmentMembersList(departmentId)
       .then((list: IMemberShort[]) => {
-        console.log('received members list: ', list);
         this.membersList = list;
         return list;
       })
       .catch((err: Error) => {
-        console.log('received members list error: ', err);
         this.networkError = true;
         return false;
       })

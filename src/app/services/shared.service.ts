@@ -7,7 +7,6 @@ export class SharedService {
   private _teamLeader: Member = null;
 
   public set teamLeader(member: Member) {
-    console.log('set team leader: ', member);
     if (!member) {
       return;
     }

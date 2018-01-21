@@ -45,7 +45,7 @@ export class MemberAddComponent implements OnInit {
 
     this.memberForm = this.fb.group({
       name: [this.newMember.name, [Validators.required, Validators.maxLength(100)]],
-      description: [this.newMember.description, [Validators.required, Validators.maxLength(255)]], // todo: select
+      description: [this.newMember.description, [Validators.required, Validators.maxLength(255)]],
       gender: [this.newMember.gender, [Validators.required, Validators.maxLength(1)]],
       job: [this.newMember.job, [Validators.required, Validators.maxLength(100)]],
     });

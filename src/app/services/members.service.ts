@@ -140,12 +140,10 @@ export class MembersService extends NetworkService {
       description: member.description,
       skills: Member.skillsArrayToObject(member.skills)
     };
-    console.log('skillsData: ', skillsData);
 
     return this.http.post(url, skillsData)
       .toPromise()
       .then((response: IBackendResponse) => {
-      console.log('response: ', response);
         return true;
       })
       .catch(this.handleError);

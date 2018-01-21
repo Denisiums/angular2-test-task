@@ -25,7 +25,6 @@ export class CompanyComponent implements OnInit {
   constructor(private companiesService: CompaniesService, private departmentsService: DepartmentsService) { }
 
   ngOnInit() {
-    console.log('Company component');
     this.getCompany();
     this.getDepartmentsList();
   }
@@ -38,12 +37,10 @@ export class CompanyComponent implements OnInit {
     this.pending.company = true;
     this.companiesService.getCompany()
       .then((company: ICompany) => {
-        console.log('received company: ', company);
         this.company = company;
         return company;
       })
       .catch((err: Error) => {
-        console.log('received company error: ', err);
         this.networkError = true;
         return false;
       })
@@ -60,12 +57,10 @@ export class CompanyComponent implements OnInit {
     this.pending.departments = true;
     this.departmentsService.getDepartmentsList()
       .then((list: IDepartmentShort[]) => {
-        console.log('received departments list: ', list);
         this.departmentsList = list;
         return list;
       })
       .catch((err: Error) => {
-        console.log('received departments list error: ', err);
         this.networkError = true;
         return false;
       })

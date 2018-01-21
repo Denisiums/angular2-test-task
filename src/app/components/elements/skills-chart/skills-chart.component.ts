@@ -20,7 +20,6 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
     this.canvas.nativeElement.width = 400;
     this.canvas.nativeElement.height = 300;
     const canvasElement: HTMLCanvasElement = this.canvas.nativeElement;
-    // todo: colors + legend
     const options: IChartOptions = {
       canvas: canvasElement,
       seriesName: 'Skills',

@@ -52,8 +52,6 @@ export class Chart {
     this.drawBars(maxValue, canvasActualHeight, canvasActualWidth);
     this.drawSeriesName();
     this.generateLegend();
-    // TODO
-    // this.drawLegend();
   }
 
   public get legend(): IChartLegendItem[] {

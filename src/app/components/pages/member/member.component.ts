@@ -50,7 +50,7 @@ export class MemberComponent implements OnInit {
       this.memberId = params['memberId'];
       this.getMember()
         .then((member: Member) => {
-          console.log('ok');
+        // ok
         });
     });
   }
@@ -79,14 +79,12 @@ export class MemberComponent implements OnInit {
     }
 
     Promise.all(requests).then(response => {
-      console.log('Promise all response: ', response);
       if (response) {
         this.setMember(this.formMember);
       }
 
     }).catch(err => {
-      console.log('err: ', err);
-      this.formError = err.message;
+      this.formError = err.message || 'Oops. Something wrong happened. Try again later;';
     })
 
     ;

@@ -53,7 +53,6 @@ export class Member implements IMember {
       }
     });
 
-    // todo: sort?
     return results;
   }
 
@@ -140,8 +139,6 @@ export class Member implements IMember {
 
   public addSkill(skill: ISkill): void {
     if (!skill || this.hasSkill(skill)) {
-      // todo some notification?
-      console.log('Member has this skill already');
       return;
     }
 
