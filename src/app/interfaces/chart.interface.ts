@@ -5,7 +5,6 @@ export interface IChartOptions {
   gridScale: number;
   gridColor: string;
   data: IChartDataItem[];
-  colors: string[];
 }
 
 export interface IChartDataItem {

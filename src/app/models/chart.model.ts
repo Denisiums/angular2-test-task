@@ -1,4 +1,5 @@
 import { IChartOptions, IChartDataItem } from '../interfaces';
+import * as getRandomColor from 'randomcolor';
 
 export class Chart {
   private options: IChartOptions;
@@ -11,7 +12,7 @@ export class Chart {
     this.options = options;
     this.canvas = options.canvas;
     this.ctx = this.canvas.getContext('2d');
-    this.colors = options.colors;
+    this.colors = [];
     this.data = options.data;
   }
 
@@ -41,6 +42,8 @@ export class Chart {
 
   public draw(): void {
     this.clear();
+    this.fillColors();
+    console.log('this.colors:', this.colors);
     const maxValue: number = this.getDataMaxValue();
     const canvasActualHeight: number = this.canvas.height - this.options.padding * 2;
     const canvasActualWidth: number = this.canvas.width - this.options.padding * 2;
@@ -121,6 +124,18 @@ export class Chart {
 
   private clear(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  private fillColors(): void {
+    // https://github.com/davidmerfield/randomColor
+    if (!this.colors || !this.data || !this.data.length || !getRandomColor) {
+      return;
+    }
+
+    const delta: number = this.data.length - this.colors.length;
+    for (let i = 0; i < delta; i++) {
+      this.colors.push(getRandomColor());
+    }
   }
 
   // private drawLegend(): void {

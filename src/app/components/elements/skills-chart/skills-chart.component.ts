@@ -24,7 +24,7 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
     this.canvas.nativeElement.height = 300;
     const canvasElement: HTMLCanvasElement = this.canvas.nativeElement;
     // todo: colors + legend
-    const colors: string[] = ['#aaaaaa', '#ffaaff', '#bbbbff'];
+    // const colors: string[] = ['#aaaaaa', '#ffaaff', '#bbbbff'];
     const options: IChartOptions = {
       canvas: canvasElement,
       seriesName: 'Skills',
@@ -32,7 +32,6 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
       gridScale: 5,
       gridColor: '#dddddd',
       data: (this.skills as IChartDataItem[]),
-      colors
     };
 
     this.chart = new Chart(options);
