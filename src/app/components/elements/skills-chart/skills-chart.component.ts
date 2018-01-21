@@ -34,7 +34,7 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
   }
 
   public ngAfterViewChecked(): void {
-    if (this.chart && Member.isSkillsValid(this.skills)) {
+    if (this.skills && this.chart && Member.isSkillsValid(this.skills)) {
       this.chart.draw();
       this.cdRef.detectChanges();
     }

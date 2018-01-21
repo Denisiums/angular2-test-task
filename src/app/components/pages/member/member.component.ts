@@ -151,6 +151,7 @@ export class MemberComponent implements OnInit {
       return Promise.resolve(teamLeader);
     }
 
+    this.pending.member = true;
     const departmentId: string = this.departmentId;
     const memberId: string = this.memberId;
     return this.membersService.getDepartmentMember(departmentId, memberId)
