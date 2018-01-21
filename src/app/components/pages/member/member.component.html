@@ -30,9 +30,9 @@
   </div>
   <div class="member__controls" *ngIf="canEdit">
     <button [disabled]="!skillsValid || !memberChanged" (click)="save()" class="member__control button button--large button--submit">
-      Save
+      {{pending.save ? 'Saving' : 'Save'}}
     </button>
-    <button [disabled]="!memberChanged" (click)="undo()" class="member__control button button--large button--undo">
+    <button [disabled]="!memberChanged || pending.save" (click)="undo()" class="member__control button button--large button--undo">
       Undo
     </button>
   </div>

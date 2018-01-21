@@ -7,6 +7,7 @@ import { Member } from '../../../models';
 
 interface IMemberPagePending {
   member: boolean;
+  save: boolean;
 }
 
 @Component({
@@ -25,7 +26,8 @@ export class MemberComponent implements OnInit {
 
   public formMember: Member = null;
   public pending: IMemberPagePending = {
-    member: false
+    member: false,
+    save: false
   };
   public networkError: boolean = false;
   public formError: string = '';
@@ -61,7 +63,12 @@ export class MemberComponent implements OnInit {
       this.formError = 'Invalid skills. Check again, please.';
       return;
     }
+    if (this.pending.save) {
+      return;
+    }
+
     // send all data to backend
+    this.pending.save = true;
     const requests: Promise<boolean>[] = [];
     const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
     const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);
@@ -82,12 +89,13 @@ export class MemberComponent implements OnInit {
       if (response) {
         this.setMember(this.formMember);
       }
-
+      return true;
     }).catch(err => {
       this.formError = err.message || 'Oops. Something wrong happened. Try again later;';
-    })
-
-    ;
+      return false;
+    }).then(() => {
+      this.pending.save = false;
+    });
   }
 
   public undo(): void {
