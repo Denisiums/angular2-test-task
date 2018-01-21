@@ -11,3 +11,9 @@ export interface IChartDataItem {
   key: string;
   value: number;
 }
+
+export interface IChartLegendItem {
+  key: string;
+  value: number;
+  color: string;
+}

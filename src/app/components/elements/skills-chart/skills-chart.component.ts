@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { ISkill, IChartOptions, IChartDataItem } from '../../../interfaces';
 import { Chart, Member } from '../../../models';
 
@@ -12,19 +12,15 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
   @Input() public skills: ISkill[] = [];
 
   @ViewChild('canvas') private canvas: ElementRef;
-  private chart: Chart;
+  public chart: Chart;
 
-  constructor() { }
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   public ngAfterViewInit(): void {
-    // this.input is NOW valid !!
-    console.log('this.canvas: ', this.canvas.nativeElement);
-    console.log('this.skills: ', this.skills);
     this.canvas.nativeElement.width = 400;
     this.canvas.nativeElement.height = 300;
     const canvasElement: HTMLCanvasElement = this.canvas.nativeElement;
     // todo: colors + legend
-    // const colors: string[] = ['#aaaaaa', '#ffaaff', '#bbbbff'];
     const options: IChartOptions = {
       canvas: canvasElement,
       seriesName: 'Skills',
@@ -40,6 +36,7 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
   public ngAfterViewChecked(): void {
     if (this.chart && Member.isSkillsValid(this.skills)) {
       this.chart.draw();
+      this.cdRef.detectChanges();
     }
   }
 }

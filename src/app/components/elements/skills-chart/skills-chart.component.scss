@@ -1,2 +1,20 @@
 @import "../../../../assets/styles/mixins";
 
+.skills-chart {
+  &__chart {
+
+  }
+  &__legend {
+    margin-top: 10px;
+  }
+  &__skill {
+    margin-top: 10px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.skill-legend {
+
+}

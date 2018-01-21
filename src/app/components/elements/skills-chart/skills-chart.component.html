@@ -1,3 +1,8 @@
 <div class="skills-chart">
-  <canvas #canvas></canvas>
+  <canvas class="skills-chart__canvas" #canvas></canvas>
+  <div class="skills-chart__legend" *ngIf="chart && chart.legend">
+    <div *ngFor="let skill of chart.legend" class="skills-chart__skill skill-legend">
+      {{skill.key}} - {{skill.value}}
+    </div>
+  </div>
 </div>

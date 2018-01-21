@@ -1,7 +1,8 @@
-import { IChartOptions, IChartDataItem } from '../interfaces';
+import { IChartOptions, IChartDataItem, IChartLegendItem } from '../interfaces';
 import * as getRandomColor from 'randomcolor';
 
 export class Chart {
+  private chartLegend: IChartLegendItem[];
   private options: IChartOptions;
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
@@ -43,7 +44,6 @@ export class Chart {
   public draw(): void {
     this.clear();
     this.fillColors();
-    console.log('this.colors:', this.colors);
     const maxValue: number = this.getDataMaxValue();
     const canvasActualHeight: number = this.canvas.height - this.options.padding * 2;
     const canvasActualWidth: number = this.canvas.width - this.options.padding * 2;
@@ -51,8 +51,17 @@ export class Chart {
     this.drawGrid(maxValue, canvasActualHeight);
     this.drawBars(maxValue, canvasActualHeight, canvasActualWidth);
     this.drawSeriesName();
+    this.generateLegend();
     // TODO
     // this.drawLegend();
+  }
+
+  public get legend(): IChartLegendItem[] {
+    if (!this.chartLegend) {
+      return [];
+    }
+
+    return this.chartLegend;
   }
 
   private getDataMaxValue(): number {
@@ -138,19 +147,19 @@ export class Chart {
     }
   }
 
-  // private drawLegend(): void {
-  //   let barIndex: number = 0;
-  //   const legend = document.querySelector("legend[for='myCanvas']");
-  //   var ul = document.createElement("ul");
-  //   legend.append(ul);
-  //   for (categ in this.options.data){
-  //     var li = document.createElement("li");
-  //     li.style.listStyle = "none";
-  //     li.style.borderLeft = "20px solid "+this.colors[barIndex%this.colors.length];
-  //     li.style.padding = "5px";
-  //     li.textContent = categ;
-  //     ul.append(li);
-  //     barIndex++;
-  //   }
-  // }
+  private generateLegend() {
+    const DEFAULT_COLOR: string = '#eeeeee';
+    if (!this.data || this.data.length > this.colors.length) {
+      return [];
+    }
+
+    this.chartLegend = this.data.map((item: IChartDataItem, index: number) => {
+      const color: string =  this.colors[index] || DEFAULT_COLOR;
+      return {
+        key: item.key,
+        value: item.value,
+        color
+      };
+    });
+  }
 }
