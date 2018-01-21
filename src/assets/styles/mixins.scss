@@ -34,6 +34,11 @@
   &:hover {
     background-color: #eeeeee;
   }
+  &--disabled {
+    &:hover {
+      background: none;
+    }
+  }
 }
 
 @mixin colorize-button($color) {
@@ -56,5 +61,11 @@
   outline: none;
   &--invalid {
     border-color: $color-discard !important;
+  }
+  &[disabled] {
+    background: none;
+    border: none;
+    cursor: default;
+
   }
 }

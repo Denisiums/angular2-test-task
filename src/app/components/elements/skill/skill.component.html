@@ -1,4 +1,4 @@
-<div class="skill">
+<div class="skill" [class.skill--disabled]="!canEdit">
   <div class="skill__info">
     <div class="skill__label">{{skill.key}}:</div>
     <input
