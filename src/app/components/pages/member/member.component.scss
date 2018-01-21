@@ -20,4 +20,9 @@
   &__skills {
     margin-top: 20px;
   }
+  &__form-errors {
+    margin-top: 10px;
+    color: $color-discard;
+    font-size: 20px;
+  }
 }

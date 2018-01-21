@@ -28,6 +28,7 @@ export class MemberComponent implements OnInit {
     member: false
   };
   public networkError: boolean = false;
+  public formError: string = '';
 
   private currentMember: Member = null;
   private departmentId: string;
@@ -65,6 +66,12 @@ export class MemberComponent implements OnInit {
   public save(): void {
     // todo: save
     console.log('save need');
+    this.formError = '';
+    if (!this.formMember.skillsValid) {
+      // todo: show some error
+      this.formError = 'Invalid skills. Check again, please.';
+      return;
+    }
     // send add data to backend
     const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
     const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);

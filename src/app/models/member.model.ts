@@ -1,14 +1,16 @@
 import { IMember, IMemberBackend, ISkill, ISkillsBackend } from '../interfaces';
 
 export class Member implements IMember {
+  public static readonly skillNameMaxLength: number = 255;
+  public static readonly skillMinValue: number = 0;
+  public static readonly skillMaxValue: number = 100;
+
   public name: string;
   public id?: string;
   public gender: 'F'|'M';
   public job: string;
   public description: string;
   public skills: ISkill[];
-
-  public skillsList: ISkill[];
 
   constructor() {
   }
@@ -108,6 +110,16 @@ export class Member implements IMember {
     return results;
   }
 
+  public static isSkillValid(skill: ISkill): boolean {
+    return !!(skill
+      && skill.key
+      && skill.key.length <= Member.skillNameMaxLength
+      && typeof skill.value === 'number'
+      && skill.value >= Member.skillMinValue
+      && skill.value <= Member.skillMaxValue
+    );
+  }
+
   public addSkill(skill: ISkill): void {
     if (!skill || this.hasSkill(skill)) {
       // todo some notification?
@@ -141,6 +153,10 @@ export class Member implements IMember {
     }
 
     return !!this.skills.find((oldSkill: ISkill) => oldSkill.key === skill.key);
+  }
+
+  public skillsValid(): boolean {
+    return (this.skills.every((skill: ISkill) => Member.isSkillValid(skill)));
   }
 
   public get prettyGender(): string {
