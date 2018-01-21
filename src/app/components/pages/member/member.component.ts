@@ -50,7 +50,7 @@ export class MemberComponent implements OnInit {
       this.memberId = params['memberId'];
       this.getMember()
         .then((member: Member) => {
-          this.formMember = Member.fromFrontend(this.currentMember);
+          console.log('ok');
         });
     });
   }
@@ -67,15 +67,40 @@ export class MemberComponent implements OnInit {
     // todo: save
     console.log('save need');
     this.formError = '';
-    if (!this.formMember.skillsValid) {
+    if (!this.skillsValid) {
       // todo: show some error
       this.formError = 'Invalid skills. Check again, please.';
       return;
     }
-    // send add data to backend
+    // send all data to backend
+    const requests: Promise<boolean>[] = [];
     const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
     const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);
     const changedSkills: ISkill[] = Member.getChangedSkills(this.currentMember.skills, this.formMember.skills);
+    const departmentId: string = this.departmentId;
+    const memberId: string = this.memberId;
+    if (newSkills.length) {
+      requests.push(this.membersService.addDepartmentMemberSkills(departmentId, memberId, newSkills));
+    }
+    if (removedSkills.length) {
+      requests.push(this.membersService.removeDepartmentMemberSkills(departmentId, memberId, removedSkills));
+    }
+    if (changedSkills.length) {
+      requests.push(this.membersService.updateDepartmentMemberSkills(departmentId, memberId, changedSkills));
+    }
+
+    Promise.all(requests).then(response => {
+      console.log('Promise all response: ', response);
+      if (response) {
+        this.setMember(this.formMember);
+      }
+
+    }).catch(err => {
+      console.log('err: ', err);
+      this.formError = err.message;
+    })
+
+    ;
   }
 
   public undo(): void {
@@ -95,6 +120,7 @@ export class MemberComponent implements OnInit {
       return;
     }
 
+    console.log('this.skillsValid: ', this.skillsValid);
     this.formMember.setSkill(skill);
   }
 
@@ -106,6 +132,10 @@ export class MemberComponent implements OnInit {
     this.formMember.removeSkill(skill);
   }
 
+  public get skillsValid(): boolean {
+    return !!(this.formMember && this.formMember.skillsValid);
+  }
+
   private getMember(): Promise<Member> {
     if (!this.departmentId) {
       return Promise.reject(new Error('Unable to get member: no department id'));
@@ -114,7 +144,7 @@ export class MemberComponent implements OnInit {
     this.networkError = false;
     if (this.shouldLoadTeamleader) {
       const teamLeader: Member = this.sharedService.teamLeader;
-      this.currentMember = teamLeader;
+      this.setMember(teamLeader);
       // or create empty form
       return Promise.resolve(teamLeader);
     }
@@ -123,12 +153,13 @@ export class MemberComponent implements OnInit {
     const memberId: string = this.memberId;
     return this.membersService.getDepartmentMember(departmentId, memberId)
       .then((member: Member) => {
-        this.currentMember = member;
+        this.setMember(member);
         return member;
       })
       .catch((err: Error) => {
         this.networkError = true;
-        return Member.fromFrontend(this.emptyMemberData);
+        this.setMember(Member.fromFrontend(this.emptyMemberData));
+        return err;
       })
       .then((member: Member) => {
         this.pending.member = false;
@@ -138,6 +169,15 @@ export class MemberComponent implements OnInit {
 
   private resetFormMember(): void {
     this.formMember = Member.fromFrontend(this.currentMember);
+  }
+
+  private setMember(member: Member): void {
+    if (!member) {
+      return;
+    }
+
+    this.currentMember = Member.fromFrontend(member);
+    this.formMember = Member.fromFrontend(member);
   }
 
   private get shouldLoadTeamleader(): boolean {

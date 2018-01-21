@@ -59,7 +59,7 @@ export class Member implements IMember {
 
   public static skillsArrayToObject(skills: ISkill[]): ISkillsBackend {
     if (!skills || !skills.length) {
-      return {};
+      return null;
     }
 
     const result: ISkillsBackend = {};
@@ -67,6 +67,16 @@ export class Member implements IMember {
       result[skill.key] = skill.value;
     });
     return result;
+  }
+
+  public static skillToBackendObject(skill: ISkill): ISkillsBackend {
+    if (!skill || !Member.isSkillValid(skill)) {
+      return null;
+    }
+
+    return {
+      [skill.key]: skill.value
+    };
   }
 
   public static getRemovedSkills(original: ISkill[], changed: ISkill[]): ISkill[] {
@@ -155,7 +165,7 @@ export class Member implements IMember {
     return !!this.skills.find((oldSkill: ISkill) => oldSkill.key === skill.key);
   }
 
-  public skillsValid(): boolean {
+  public get skillsValid(): boolean {
     return (this.skills.every((skill: ISkill) => Member.isSkillValid(skill)));
   }
 

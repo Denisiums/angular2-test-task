@@ -28,7 +28,7 @@
     {{formError}}
   </div>
   <div class="member__controls" *ngIf="canEdit">
-    <button (click)="save()" class="button button--submit">
+    <button [disabled]="!skillsValid" (click)="save()" class="button button--submit">
       Save
     </button>
     <button (click)="undo()" class="button button--undo">
