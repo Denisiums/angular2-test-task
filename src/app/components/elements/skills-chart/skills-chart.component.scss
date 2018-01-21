@@ -1,11 +1,12 @@
 @import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
 
 .skills-chart {
   &__chart {
 
   }
   &__legend {
-    margin-top: 10px;
+    margin-top: 5px;
   }
   &__skill {
     margin-top: 10px;
@@ -16,5 +17,23 @@
 }
 
 .skill-legend {
-
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  &__color {
+    display: block;
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+  }
+  &__text {
+    flex: 0 0 auto;
+    font-size: 12px;
+    margin-left: 5px;
+  }
 }

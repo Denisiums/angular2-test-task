@@ -2,7 +2,8 @@
   <canvas class="skills-chart__canvas" #canvas></canvas>
   <div class="skills-chart__legend" *ngIf="chart && chart.legend && chart.legend.length">
     <div *ngFor="let skill of chart.legend" class="skills-chart__skill skill-legend">
-      {{skill.key}} - {{skill.value}}
+      <div class="skill-legend__color" [ngStyle]="{'background-color': skill.color}"></div>
+      <div class="skill-legend__text">{{skill.key}}</div>
     </div>
   </div>
 </div>
