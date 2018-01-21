@@ -130,6 +130,14 @@ export class Member implements IMember {
     );
   }
 
+  public static isSkillsValid(skills: ISkill[]): boolean {
+    if (!skills) {
+      return false;
+    }
+
+    return (skills.every((skill: ISkill) => Member.isSkillValid(skill)));
+  }
+
   public addSkill(skill: ISkill): void {
     if (!skill || this.hasSkill(skill)) {
       // todo some notification?
@@ -166,7 +174,7 @@ export class Member implements IMember {
   }
 
   public get skillsValid(): boolean {
-    return (this.skills.every((skill: ISkill) => Member.isSkillValid(skill)));
+    return Member.isSkillsValid(this.skills);
   }
 
   public get prettyGender(): string {

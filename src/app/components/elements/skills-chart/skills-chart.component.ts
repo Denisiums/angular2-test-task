@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ISkill, IChartOptions, IChartDataItem } from '../../../interfaces';
-import { Chart } from '../../../models';
+import { Chart, Member } from '../../../models';
 
 @Component({
   selector: 'app-skills-chart',
   templateUrl: './skills-chart.component.html',
   styleUrls: ['./skills-chart.component.scss']
 })
-export class SkillsChartComponent implements OnInit, AfterViewInit {
+export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
 
   @Input() public skills: ISkill[] = [];
 
@@ -15,10 +15,6 @@ export class SkillsChartComponent implements OnInit, AfterViewInit {
   private chart: Chart;
 
   constructor() { }
-
-  public ngOnInit() {
-
-  }
 
   public ngAfterViewInit(): void {
     // this.input is NOW valid !!
@@ -28,28 +24,23 @@ export class SkillsChartComponent implements OnInit, AfterViewInit {
     this.canvas.nativeElement.height = 300;
     const canvasElement: HTMLCanvasElement = this.canvas.nativeElement;
     // todo: colors + legend
-    const colors: string[] = ['#aaaaaa', '#ffaaff', 'bbbbff'];
+    const colors: string[] = ['#aaaaaa', '#ffaaff', '#bbbbff'];
     const options: IChartOptions = {
-      /*canvas: HTMLCanvasElement;
-    seriesName?: string;
-    padding: number;
-    gridScale: number;
-    gridColor: string;
-    data: IChartDataItem[];
-    colors: string[];*/
       canvas: canvasElement,
       seriesName: 'Skills',
-      padding: 10,
+      padding: 20,
       gridScale: 5,
-      gridColor: '#eeeeee',
+      gridColor: '#dddddd',
       data: (this.skills as IChartDataItem[]),
       colors
-
     };
 
     this.chart = new Chart(options);
-    this.chart.draw();
   }
 
-
+  public ngAfterViewChecked(): void {
+    if (this.chart && Member.isSkillsValid(this.skills)) {
+      this.chart.draw();
+    }
+  }
 }

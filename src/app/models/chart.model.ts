@@ -29,11 +29,27 @@ export class Chart {
     ctx.restore();
   }
 
-  public static drawBar(ctx, upperLeftCornerX: number, upperLeftCornerY: number, width: number, height: number, color: string){
+  public static drawBar(ctx, upperLeftCornerX: number, upperLeftCornerY: number, width: number, height: number, color: string) {
+    if (!ctx) {
+      return;
+    }
     ctx.save();
     ctx.fillStyle = color;
     ctx.fillRect(upperLeftCornerX, upperLeftCornerY, width, height);
     ctx.restore();
+  }
+
+  public draw(): void {
+    this.clear();
+    const maxValue: number = this.getDataMaxValue();
+    const canvasActualHeight: number = this.canvas.height - this.options.padding * 2;
+    const canvasActualWidth: number = this.canvas.width - this.options.padding * 2;
+
+    this.drawGrid(maxValue, canvasActualHeight);
+    this.drawBars(maxValue, canvasActualHeight, canvasActualWidth);
+    this.drawSeriesName();
+    // TODO
+    // this.drawLegend();
   }
 
   private getDataMaxValue(): number {
@@ -49,6 +65,7 @@ export class Chart {
   private drawGrid(maxValue: number, canvasActualHeight: number): void {
     let gridValue: number = 0;
     while (gridValue <= maxValue) {
+      // draw lines
       const gridY: number = canvasActualHeight * (1 - gridValue / maxValue) + this.options.padding;
       Chart.drawLine(
         this.ctx,
@@ -64,7 +81,7 @@ export class Chart {
       this.ctx.fillStyle = this.options.gridColor;
       this.ctx.textBaseline = 'bottom';
       this.ctx.font = 'bold 10px';
-      this.ctx.fillText(gridValue.toString(), 10, gridY - 2);
+      this.ctx.fillText(gridValue.toString(), 0, gridY - 2);
       this.ctx.restore();
       gridValue += this.options.gridScale;
     }
@@ -97,9 +114,13 @@ export class Chart {
     this.ctx.textBaseline = 'bottom';
     this.ctx.textAlign = 'center';
     this.ctx.fillStyle = '#000000';
-    this.ctx.font = 'bold 14px';
+    this.ctx.font = 'bold 14px sans-serif';
     this.ctx.fillText(this.options.seriesName, this.canvas.width / 2, this.canvas.height);
     this.ctx.restore();
+  }
+
+  private clear(): void {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   // private drawLegend(): void {
@@ -117,23 +138,4 @@ export class Chart {
   //     barIndex++;
   //   }
   // }
-
-
-  public draw(): void {
-    const maxValue: number = this.getDataMaxValue();
-
-    const canvasActualHeight: number = this.canvas.height - this.options.padding * 2;
-    const canvasActualWidth: number = this.canvas.width - this.options.padding * 2;
-
-    this.drawGrid(maxValue, canvasActualHeight);
-    this.drawBars(maxValue, canvasActualHeight, canvasActualWidth);
-    this.drawSeriesName();
-    // TODO
-    // this.drawLegend();
-  }
-
-
-
-
-
 }
