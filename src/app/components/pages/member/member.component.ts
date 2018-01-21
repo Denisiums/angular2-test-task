@@ -55,20 +55,9 @@ export class MemberComponent implements OnInit {
     });
   }
 
-  public get canEditSkills(): boolean {
-    return !this.shouldLoadTeamleader;
-  }
-
-  public get canEdit(): boolean {
-    return !this.shouldLoadTeamleader;
-  }
-
   public save(): void {
-    // todo: save
-    console.log('save need');
     this.formError = '';
     if (!this.skillsValid) {
-      // todo: show some error
       this.formError = 'Invalid skills. Check again, please.';
       return;
     }
@@ -120,7 +109,6 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    console.log('this.skillsValid: ', this.skillsValid);
     this.formMember.setSkill(skill);
   }
 
@@ -132,8 +120,23 @@ export class MemberComponent implements OnInit {
     this.formMember.removeSkill(skill);
   }
 
+  public get canEditSkills(): boolean {
+    return !this.shouldLoadTeamleader;
+  }
+
+  public get canEdit(): boolean {
+    return !this.shouldLoadTeamleader;
+  }
+
   public get skillsValid(): boolean {
     return !!(this.formMember && this.formMember.skillsValid);
+  }
+
+  public get memberChanged(): boolean {
+    const newSkills: ISkill[] = Member.getNewSkills(this.currentMember.skills, this.formMember.skills);
+    const removedSkills: ISkill[] = Member.getRemovedSkills(this.currentMember.skills, this.formMember.skills);
+    const changedSkills: ISkill[] = Member.getChangedSkills(this.currentMember.skills, this.formMember.skills);
+    return !!(changedSkills.length || removedSkills.length || newSkills.length);
   }
 
   private getMember(): Promise<Member> {
@@ -145,7 +148,6 @@ export class MemberComponent implements OnInit {
     if (this.shouldLoadTeamleader) {
       const teamLeader: Member = this.sharedService.teamLeader;
       this.setMember(teamLeader);
-      // or create empty form
       return Promise.resolve(teamLeader);
     }
 

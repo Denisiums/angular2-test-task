@@ -28,10 +28,10 @@
     {{formError}}
   </div>
   <div class="member__controls" *ngIf="canEdit">
-    <button [disabled]="!skillsValid" (click)="save()" class="button button--submit">
+    <button [disabled]="!skillsValid || !memberChanged" (click)="save()" class="button button--submit">
       Save
     </button>
-    <button (click)="undo()" class="button button--undo">
+    <button [disabled]="!memberChanged" (click)="undo()" class="button button--undo">
       Undo
     </button>
   </div>
