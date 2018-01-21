@@ -1,0 +1,14 @@
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
+
+.not-found {
+  &__title {
+    @include pageTitle();
+  }
+  &__link {
+    margin-top: 10px;
+    @include listLink();
+    width: 100px;
+    text-decoration: underline;
+  }
+}
