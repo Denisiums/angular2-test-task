@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MembersService, SharedService } from '../../../services';
+import { MembersService } from '../../../services';
 import { IMember, ISkill } from '../../../interfaces';
 import { Member } from '../../../models';
 
@@ -19,12 +19,22 @@ export class MemberAddComponent implements OnInit {
   public newMember: Member;
   public memberForm: FormGroup;
   public formError: string = '';
+  private departmentId: string;
+  public pending: IAddMemberPagePending = {
+    member: false
+  };
 
-
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private membersService: MembersService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('init form!');
+    this.route.parent.params.subscribe(params => {
+      this.departmentId = params['departmentId'];
+    });
+
     this.newMember = Member.fromFrontend({
       name: '',
       description: '',
@@ -70,15 +80,26 @@ export class MemberAddComponent implements OnInit {
   }
 
   public create(): void {
-    if (!this.newMember || !this.skillsValid || !this.memberForm.valid) {
+    if (!this.newMember || !this.skillsValid || !this.memberForm.valid || !this.departmentId || this.pending.member) {
       return;
     }
 
-    const member = this.compileMember();
-    console.log('member to save: ', member);
-
-    console.log('create');
-    // todo: make a request to api
+    const member: Member = this.compileMember();
+    const departmentId: string = this.departmentId;
+    this.pending.member = true;
+    this.membersService.createDepartmentMember(departmentId, member)
+      .then(response => {
+        // todo: there should be navigationg to new member page, but backend is only mocks
+        this.router.navigate(['departments', this.departmentId]);
+        return true;
+      })
+      .catch(err => {
+        this.formError = err.message;
+        return false;
+      })
+      .then(() => {
+        this.pending.member = false;
+      });
   }
 
   private compileMember(): Member {

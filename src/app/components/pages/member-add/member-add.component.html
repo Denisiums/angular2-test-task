@@ -74,7 +74,10 @@
     {{formError}}
   </div>
   <div class="add-member__controls">
-    <button [disabled]="!skillsValid || !memberForm.valid" (click)="create()" class="member__control button button--large button--submit">
+    <button
+      [disabled]="!skillsValid || !memberForm.valid || pending.member"
+      (click)="create()"
+      class="member__control button button--large button--submit">
       Add
     </button>
   </div>

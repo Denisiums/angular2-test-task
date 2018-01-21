@@ -90,7 +90,6 @@ export class MembersService extends NetworkService {
   }
 
   public removeDepartmentMemberSkills(departmentId: string, memberId: string, skills: ISkill[]): Promise<boolean> {
-    // TODO
     if (!departmentId || !memberId || !skills || !skills.length) {
       return Promise.reject(new Error('API call invalid arguments'));
     }
@@ -117,6 +116,40 @@ export class MembersService extends NetworkService {
     }).catch(err => {
       return false;
     });
+  }
+
+  public createDepartmentMember(departmentId: string, member: Member): Promise<boolean> {
+    if (!departmentId || !member) {
+      return Promise.reject(new Error('API call invalid arguments'));
+    }
+
+    const url: string = `${this.getBaseUrl(departmentId)}`;
+    /*name: string;
+    id?: string;
+    gender: 'F'|'M';
+    job: string;
+    description: string;
+    skills: {
+      [key: string]: number
+    };*/
+
+    const skillsData: IMemberBackend = {
+      name: member.name,
+      gender: member.gender,
+      job: member.job,
+      description: member.description,
+      skills: Member.skillsArrayToObject(member.skills)
+    };
+    console.log('skillsData: ', skillsData);
+
+    return this.http.post(url, skillsData)
+      .toPromise()
+      .then((response: IBackendResponse) => {
+      console.log('response: ', response);
+        return true;
+      })
+      .catch(this.handleError);
+
   }
 
   private getBaseUrl(departmentId: string) {
