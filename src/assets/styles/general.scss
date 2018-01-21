@@ -83,6 +83,23 @@
   @include input();
 }
 
+.textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  resize: vertical;
+}
+
+.dropdown {
+  font-size: 16px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  padding: 5px;
+  &__option {
+    padding: 5px;
+  }
+}
+
 @media (max-width: 1220px) {
   .app-container {
     width: 100%;

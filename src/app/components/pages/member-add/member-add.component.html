@@ -1,3 +1,81 @@
-<p>
-  member-add works!
-</p>
+<div class="add-member">
+  <h1 class="add-member__title">
+    Add new Member
+  </h1>
+  memberForm value: {{memberForm.value | json}} <br>
+  memberForm status: {{memberForm.status | json}}
+  <form
+    [formGroup]="memberForm"
+    (ngSubmit)="add()"
+    novalidate
+    class="add-member__form">
+    <label title="Name up to 100 characters" class="add-member__input labeled-input">
+      <div class="labeled-input__label">
+        Name
+      </div>
+      <input
+        formControlName="name"
+        maxlength="100"
+        [class.input--invalid]="memberForm.get('name').touched && memberForm.get('name').invalid"
+        class="input labeled-input__input"
+        type="text">
+    </label>
+
+    <label title="Name up to 100 characters" class="add-member__input add-member__input--gender labeled-input">
+      <div class="labeled-input__label">
+        Gender
+      </div>
+      <select class="labeled-input__input form-control dropdown" formControlName="gender">
+        <option class="dropdown__option" [value]="'M'">Male</option>
+        <option class="dropdown__option" [value]="'F'">Female</option>
+      </select>
+    </label>
+
+    <label title="Description up to 255 characters" class="add-member__input labeled-input">
+      <div class="labeled-input__label">
+        Description
+      </div>
+      <textarea
+        formControlName="description"
+        maxlength="255"
+        rows="4"
+        [class.input--invalid]="memberForm.get('description').touched && memberForm.get('description').invalid"
+        class="input textarea labeled-input__input"
+        type="text">
+      </textarea>
+    </label>
+
+    <label title="Job up to 100 characters" class="add-member__input labeled-input">
+      <div class="labeled-input__label">
+        Job
+      </div>
+      <input
+        formControlName="job"
+        maxlength="100"
+        [class.input--invalid]="memberForm.get('job').touched && memberForm.get('job').invalid"
+        class="input labeled-input__input"
+        type="text">
+    </label>
+
+  </form>
+
+  <div class="add-member__skills">
+    <app-skill-editor
+      [canEdit]="true"
+      [skills]="newMember.skills"
+      (addSkill)="addSkill($event)"
+      (changeSkill)="changeSkill($event)"
+      (removeSkill)="removeSkill($event)"
+    ></app-skill-editor>
+  </div>
+
+  <div *ngIf="formError" class="member__form-errors">
+    {{formError}}
+  </div>
+  <div class="add-member__controls">
+    <button [disabled]="!skillsValid || !memberChanged" (click)="save()" class="member__control button button--large button--submit">
+      Add
+    </button>
+  </div>
+
+</div>

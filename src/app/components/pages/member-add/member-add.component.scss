@@ -1,0 +1,25 @@
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
+
+.add-member {
+  &__title {
+    @include pageTitle();
+  }
+  &__form {
+    margin-top: 20px;
+  }
+  &__input {
+    margin-top: 15px;
+    // 100 characters
+    max-width: 685px;
+    &--gender {
+      max-width: 100px;
+    }
+  }
+  &__controls {
+    margin-top: 30px;
+  }
+  &__skills {
+    margin-top: 20px;
+  }
+}
