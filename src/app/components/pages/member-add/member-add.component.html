@@ -2,9 +2,6 @@
   <h1 class="add-member__title">
     Add new Member
   </h1>
-  memberForm value: {{memberForm.value | json}} <br>
-  memberForm status: {{memberForm.status | json}} <br>
-  skills valid: {{skillsValid}}
   <form
     [formGroup]="memberForm"
     (ngSubmit)="add()"
