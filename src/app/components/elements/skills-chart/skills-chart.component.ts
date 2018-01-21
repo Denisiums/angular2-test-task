@@ -25,8 +25,7 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
       seriesName: 'Skills',
       padding: 20,
       gridScale: 5,
-      gridColor: '#dddddd',
-      data: (this.skills as IChartDataItem[]),
+      gridColor: '#dddddd'
     };
 
     this.chart = new Chart(options);
@@ -34,7 +33,7 @@ export class SkillsChartComponent implements AfterViewInit, AfterViewChecked {
 
   public ngAfterViewChecked(): void {
     if (this.skills && this.chart && Member.isSkillsValid(this.skills)) {
-      this.chart.draw();
+      this.chart.draw(this.skills as IChartDataItem[]);
       this.cdRef.detectChanges();
     }
   }

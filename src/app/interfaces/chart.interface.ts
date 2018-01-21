@@ -4,7 +4,6 @@ export interface IChartOptions {
   padding: number;
   gridScale: number;
   gridColor: string;
-  data: IChartDataItem[];
 }
 
 export interface IChartDataItem {

@@ -7,14 +7,12 @@ export class Chart {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private colors: string[];
-  private data: IChartDataItem[];
 
   constructor(options: IChartOptions) {
     this.options = options;
     this.canvas = options.canvas;
     this.ctx = this.canvas.getContext('2d');
     this.colors = [];
-    this.data = options.data;
   }
 
   public static drawLine(ctx, startX: number, startY: number, endX: number, endY: number, color: string): void {
@@ -41,17 +39,17 @@ export class Chart {
     ctx.restore();
   }
 
-  public draw(): void {
+  public draw(chartData: IChartDataItem[]): void {
     this.clear();
-    this.fillColors();
-    const maxValue: number = this.getDataMaxValue();
+    this.fillColors(chartData);
+    const maxValue: number = this.getDataMaxValue(chartData);
     const canvasActualHeight: number = this.canvas.height - this.options.padding * 2;
     const canvasActualWidth: number = this.canvas.width - this.options.padding * 2;
 
     this.drawGrid(maxValue, canvasActualHeight);
-    this.drawBars(maxValue, canvasActualHeight, canvasActualWidth);
-    this.drawSeriesName();
-    this.generateLegend();
+    this.drawBars(chartData, maxValue, canvasActualHeight, canvasActualWidth);
+    this.drawSeriesName(chartData);
+    this.generateLegend(chartData);
   }
 
   public get legend(): IChartLegendItem[] {
@@ -62,13 +60,13 @@ export class Chart {
     return this.chartLegend;
   }
 
-  private getDataMaxValue(): number {
+  private getDataMaxValue(chartData: IChartDataItem[]): number {
     let max: number = 0;
-    if (!this.data || !this.data.length) {
+    if (!chartData || !chartData.length) {
       return max;
     }
 
-    this.data.forEach((item: IChartDataItem) => (max = Math.max(max, item.value)));
+    chartData.forEach((item: IChartDataItem) => (max = Math.max(max, item.value)));
     return max;
   }
 
@@ -97,13 +95,13 @@ export class Chart {
     }
   }
 
-  private drawBars(maxValue: number, canvasActualHeight: number, canvasActualWidth: number): void {
+  private drawBars(chartData: IChartDataItem[], maxValue: number, canvasActualHeight: number, canvasActualWidth: number): void {
     let barIndex: number = 0;
-    const numberOfBars: number = this.data.length;
+    const numberOfBars: number = chartData.length;
     const barSize: number = (canvasActualWidth) / numberOfBars;
 
 
-    this.data.forEach((item: IChartDataItem) => {
+    chartData.forEach((item: IChartDataItem) => {
       const value: number = item.value;
       const barHeight: number = Math.round( canvasActualHeight * value / maxValue) ;
       Chart.drawBar(
@@ -119,7 +117,10 @@ export class Chart {
     });
   }
 
-  private drawSeriesName(): void {
+  private drawSeriesName(chartData: IChartDataItem[]): void {
+    if (!chartData || !chartData.length) {
+      return;
+    }
     this.ctx.save();
     this.ctx.textBaseline = 'bottom';
     this.ctx.textAlign = 'center';
@@ -133,25 +134,25 @@ export class Chart {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  private fillColors(): void {
+  private fillColors(chartData: IChartDataItem[]): void {
     // https://github.com/davidmerfield/randomColor
-    if (!this.colors || !this.data || !this.data.length || !getRandomColor) {
+    if (!this.colors || !chartData || !chartData.length || !getRandomColor) {
       return;
     }
 
-    const delta: number = this.data.length - this.colors.length;
+    const delta: number = chartData.length - this.colors.length;
     for (let i = 0; i < delta; i++) {
       this.colors.push(getRandomColor());
     }
   }
 
-  private generateLegend() {
+  private generateLegend(chartData: IChartDataItem[]) {
     const DEFAULT_COLOR: string = '#eeeeee';
-    if (!this.data || this.data.length > this.colors.length) {
+    if (!chartData || chartData.length > this.colors.length) {
       return [];
     }
 
-    this.chartLegend = this.data.map((item: IChartDataItem, index: number) => {
+    this.chartLegend = chartData.map((item: IChartDataItem, index: number) => {
       const color: string =  this.colors[index] || DEFAULT_COLOR;
       return {
         key: item.key,
