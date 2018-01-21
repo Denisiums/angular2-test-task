@@ -23,6 +23,7 @@
     flex: 0 0 auto;
     @include ellipsis();
     max-width: 175px;
+    line-height: 1.1;
   }
   &__value {
     margin-left: 5px;
