@@ -1,17 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DepartmentComponent } from './department.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CompaniesService } from '../../../services/companies.service';
+import { DepartmentsService } from '../../../services/departments.service';
+import { MembersService } from '../../../services/members.service';
+import { SharedService } from '../../../services/shared.service';
 
 describe('DepartmentComponent', () => {
   let component: DepartmentComponent;
   let fixture: ComponentFixture<DepartmentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ DepartmentComponent ]
+      declarations: [ DepartmentComponent ],
+      imports: [ RouterTestingModule ],
+      providers: [
+        {provide: CompaniesService, useValue: {}},
+        {provide: DepartmentsService, useValue: {}},
+        {provide: MembersService, useValue: {}},
+        {provide: SharedService, useValue: {}},
+      ]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DepartmentComponent);
