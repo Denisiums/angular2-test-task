@@ -124,15 +124,6 @@ export class MembersService extends NetworkService {
     }
 
     const url: string = `${this.getBaseUrl(departmentId)}`;
-    /*name: string;
-    id?: string;
-    gender: 'F'|'M';
-    job: string;
-    description: string;
-    skills: {
-      [key: string]: number
-    };*/
-
     const skillsData: IMemberBackend = {
       name: member.name,
       gender: member.gender,

@@ -89,7 +89,7 @@ export class MemberAddComponent implements OnInit {
     this.pending.member = true;
     this.membersService.createDepartmentMember(departmentId, member)
       .then(response => {
-        // todo: there should be navigationg to new member page, but backend is only mocks
+        // todo: there should navigate to new member page, but backend is only mocks
         this.router.navigate(['departments', this.departmentId]);
         return true;
       })
